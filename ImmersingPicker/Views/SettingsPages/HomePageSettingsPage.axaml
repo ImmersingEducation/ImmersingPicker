@@ -1,0 +1,47 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:ipicker="clr-namespace:ImmersingPicker.Helpers"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ImmersingPicker.Views.SettingsPages.HomePageSettingsPage">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical" Margin="12" Spacing="12">
+                        <TextBlock Text="主界面设置"
+                                   FontSize="32"
+                                   FontWeight="SemiBold"/>
+                        <StackPanel Orientation="Vertical">
+                                <fa:SettingsExpanderItem Content="抽选动画播放次数" Description="次数越多，动画播放时长越久" IconSource="{ipicker:FluentIconSource &#xEDBC;}">
+                                        <fa:SettingsExpanderItem.Footer>
+                                                <NumericUpDown x:Name="HomeAnimationPlayAmount" Minimum="0" FormatString="0" Increment="1" ValueChanged="HomeAnimationPlayAmount_OnValueChanged"/>
+                                        </fa:SettingsExpanderItem.Footer>
+                                </fa:SettingsExpanderItem>
+                                <fa:SettingsExpanderItem Content="抽选动画播放间隔" Description="次数越多，动画播放时长越久" IconSource="{ipicker:FluentIconSource &#xF360;}">
+                                        <fa:SettingsExpanderItem.Footer>
+                                                <NumericUpDown x:Name="HomeAnimationPlayDelay" Minimum="20" FormatString="0" Increment="20" ValueChanged="HomeAnimationPlayDelay_OnValueChanged"/>
+                                        </fa:SettingsExpanderItem.Footer>
+                                </fa:SettingsExpanderItem>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                                <fa:SettingsExpanderItem Content="座位网格行排列方向" Description="改变座位网格行排列方向，可选从上至下和从下至上" IconSource="{ipicker:FluentIconSource &#xE08A;}">
+                                        <fa:SettingsExpanderItem.Footer>
+                                                <fa:FAComboBox x:Name="SeatGridRowArrangement" SelectionChanged="SeatGridRowArrangement_OnSelectionChanged">
+                                                        <fa:FAComboBoxItem Content="从上至下"/>
+                                                        <fa:FAComboBoxItem Content="从下至上"/>
+                                                </fa:FAComboBox>
+                                        </fa:SettingsExpanderItem.Footer>
+                                </fa:SettingsExpanderItem>
+                                <fa:SettingsExpanderItem Content="座位网格列排列方向" Description="改变座位网格列排列方向，可选从左至右和从右至左" IconSource="{ipicker:FluentIconSource &#xE092;}">
+                                        <fa:SettingsExpanderItem.Footer>
+                                                <fa:FAComboBox x:Name="SeatGridColumnArrangement" SelectionChanged="SeatGridColumnArrangement_OnSelectionChanged">
+                                                        <fa:FAComboBoxItem Content="从左至右"/>
+                                                        <fa:FAComboBoxItem Content="从右至左"/>
+                                                </fa:FAComboBox>
+                                        </fa:SettingsExpanderItem.Footer>
+                                </fa:SettingsExpanderItem>
+                        </StackPanel>
+                        </StackPanel>
+        </ScrollViewer>
+</UserControl>

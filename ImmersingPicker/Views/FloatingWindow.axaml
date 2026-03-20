@@ -1,0 +1,21 @@
+<wnd:AppWindow xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wnd = "clr-namespace:FluentAvalonia.UI.Windowing;assembly=FluentAvalonia"
+        mc:Ignorable="d" d:DesignWidth="32" d:DesignHeight="32"
+        x:Class="ImmersingPicker.Views.FloatingWindow"
+        Title="Immersing Picker"
+        Width="32" Height="32"
+        CornerRadius="18"
+        SystemDecorations="None"
+        Topmost="True"
+        Background="#00000000"
+        TransparencyLevelHint="AcrylicBlur"
+        CanResize="False"
+        ShowInTaskbar="False"
+        PointerPressed="FloatingWindow_PointerPressed">
+        <Image Source="avares://ImmersingPicker/Assets/ipicker.png"
+               Width="32" Height="32"
+               Stretch="Uniform"/>
+</wnd:AppWindow>

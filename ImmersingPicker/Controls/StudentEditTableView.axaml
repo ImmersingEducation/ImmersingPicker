@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:ImmersingPicker.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
+             x:Class="ImmersingPicker.Controls.StudentEditTableView">
+    <Grid RowDefinitions="Auto,*">
+        <!-- 表头 -->
+        <Grid Grid.Row="0" Height="40" ColumnDefinitions="*,*,*,*,*,*,*,*,*">
+            <TextBlock Grid.Column="0" Text="学号" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontWeight="Bold" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+            <TextBlock Grid.Column="1" Text="姓名" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontWeight="Bold" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+            <TextBlock Grid.Column="2" Text="座位行号" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontWeight="Bold" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+            <TextBlock Grid.Column="3" Text="座位列号" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontWeight="Bold" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+            <TextBlock Grid.Column="4" Text="初始权重" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontWeight="Bold" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+            <TextBlock Grid.Column="5" Text="上次抽选时间" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontWeight="Bold" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+            <TextBlock Grid.Column="6" Text="抽选次数" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontWeight="Bold" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+            <TextBlock Grid.Column="7" Text="当前权重" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontWeight="Bold" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+            <TextBlock Grid.Column="8" Text="操作" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontWeight="Bold" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+        </Grid>
+        
+        <!-- 学生列表 -->
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                      Background="{DynamicResource SystemControlPageBackgroundAltHighBrush}">
+            <StackPanel x:Name="StudentsStackPanel" Orientation="Vertical"/>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

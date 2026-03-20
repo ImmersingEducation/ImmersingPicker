@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="300"
+             x:Class="ImmersingPicker.Controls.UniversalVerifyDialog">
+    <StackPanel Margin="20" Spacing="15">
+        <TextBlock Text="验证身份" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+        
+        <!-- 验证方式选择区域 -->
+        <StackPanel Spacing="8">
+            <TextBlock Text="验证方式：" FontWeight="SemiBold"/>
+            <ComboBox x:Name="VerifyMethodComboBox" 
+                      HorizontalAlignment="Stretch"
+                      SelectionChanged="VerifyMethodComboBox_OnSelectionChanged"/>
+        </StackPanel>
+        
+        <!-- 密码验证界面 -->
+        <StackPanel x:Name="PasswordVerifyPanel" Spacing="8">
+            <TextBlock Text="密码：" FontWeight="SemiBold"/>
+            <TextBox x:Name="PasswordBox" 
+                     PasswordChar="●" 
+                     Watermark="请输入密码"
+                     HorizontalAlignment="Stretch"/>
+        </StackPanel>
+        
+        <!-- U 盘验证界面 -->
+        <StackPanel x:Name="UsbVerifyPanel" Spacing="8" IsVisible="False">
+            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Padding="10">
+                <StackPanel Spacing="10">
+                    <StackPanel>
+                        <TextBlock Text="当前 U 盘状态：" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBlock x:Name="UsbStatusText" 
+                                   Text="正在检测 U 盘..." 
+                                   Foreground="Gray"/>
+                    </StackPanel>
+                    
+                    <Button x:Name="RefreshUsbButton" 
+                            Content="刷新 U 盘状态" 
+                            HorizontalAlignment="Left"
+                            Padding="15,5"/>
+                    
+                    <TextBlock x:Name="UsbHintText" 
+                               Text="请插入已配置的 U 盘，系统将自动进行验证。" 
+                               Foreground="Gray" 
+                               FontSize="12"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        
+        <!-- 错误和信息提示区域 -->
+        <TextBlock x:Name="ErrorTextBlock" 
+                   Text="" 
+                   Foreground="Red" 
+                   FontSize="12"
+                   TextWrapping="Wrap"
+                   IsVisible="False"/>
+        
+        <TextBlock x:Name="InfoTextBlock" 
+                   Text="请选择验证方式并完成验证以继续操作。" 
+                   Foreground="Gray" 
+                   FontSize="12"
+                   TextWrapping="Wrap"/>
+    </StackPanel>
+</UserControl>

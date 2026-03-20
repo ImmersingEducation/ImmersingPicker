@@ -1,0 +1,31 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sty="using:FluentAvalonia.Styling"
+             x:Class="ImmersingPicker.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+        <TrayIcon.Icons>
+                <TrayIcons>
+                        <TrayIcon Icon="/Assets/ipicker.ico" ToolTipText="ImmersingPicker">
+                                <TrayIcon.Menu>
+                                        <NativeMenu>
+                                                <NativeMenuItem Header="显示主界面" Click="ShowMainWindow"/>
+                                                <NativeMenuItem Header="编辑" Click="OpenEditor"/>
+                                                <NativeMenuItem Header="设置" Click="OpenSettings"/>
+                                                <NativeMenuItemSeparator/>
+                                                <NativeMenuItem Header="重新启动" Click="RestartApplication"/>
+                                                <NativeMenuItem Header="退出" Click="ExitApplication"/>
+                                        </NativeMenu>
+                                </TrayIcon.Menu>
+                        </TrayIcon>
+                </TrayIcons>
+        </TrayIcon.Icons>
+
+        <Application.Styles>
+                <sty:FluentAvaloniaTheme />
+        </Application.Styles>
+
+        <Application.Resources>
+                <FontFamily x:Key="FluentSystemIcons">avares://ImmersingPicker/Assets/Fonts/FluentSystemIcons-Resizable.ttf#FluentSystemIcons</FontFamily>
+        </Application.Resources>
+</Application>

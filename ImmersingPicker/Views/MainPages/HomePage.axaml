@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:con="clr-namespace:ImmersingPicker.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ImmersingPicker.Views.MainPages.HomePage">
+        <Grid RowDefinitions="*,Auto"
+              ColumnDefinitions="*">
+                <con:SeatGrid x:Name="Seats" Grid.Row="0" Grid.Column="0" />
+                <Grid Grid.Row="1" Grid.Column="0"
+                      Margin="5" RowDefinitions="*"
+                      ColumnDefinitions="*,Auto,Auto,Auto,Auto,Auto,*">
+                        <Button Grid.Row="0" Grid.Column="1" Margin="5"
+                                Content="-1" Click="MinusButton_OnClick"
+                                Height="40" Width="40"/>
+                        <fa:FAComboBox Grid.Row="0" Grid.Column="2" Margin="5"
+                                        x:Name="ClazzComboBox" Height="40" Width="100"/>
+                        <Button x:Name="PickButton" Grid.Row="0" Grid.Column="3"
+                                Margin="5" Click="PickButton_OnClick"
+                                Height="40"/>
+                        <Button Grid.Row="0" Grid.Column="4" Margin="5"
+                                Content="取消选中" Click="ClearButton_OnClick"
+                                Height="40" Width="100"/>
+                        <Button Grid.Row="0" Grid.Column="5" Margin="5"
+                                Content="+1" Click="PlusButton_OnClick"
+                                Height="40" Width="40"/>
+                </Grid>
+        </Grid>
+</UserControl>

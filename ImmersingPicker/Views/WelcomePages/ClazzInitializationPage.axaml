@@ -1,0 +1,26 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ImmersingPicker.Views.WelcomePages.ClazzInitializationPage">
+        <Grid RowDefinitions="*,Auto,*" ColumnDefinitions="*,Auto,*">
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Spacing="16" HorizontalAlignment="Center">
+                        <TextBlock Text="班级初始化" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="在开始之前，您需要创建一个班级。稍后可在编辑窗口编辑班级信息。" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Vertical" Spacing="8" HorizontalAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="班级名称："/>
+                                        <TextBox x:Name="FirstClazzNameInput"/>
+                                </StackPanel>
+                        </StackPanel>
+                        <Button x:Name="NextButton" Foreground="Black" CornerRadius="25" Width="100" Height="50" HorizontalAlignment="Center" Click="NextButton_OnClick">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <controls:FontIcon Glyph="&#xEBE7;" FontFamily="avares://ImmersingPicker/Assets/Fonts/#FluentSystemIcons"/>
+                                        <TextBlock Text="继续"/>
+                                </StackPanel>
+                        </Button>
+                </StackPanel>
+        </Grid>
+</UserControl>

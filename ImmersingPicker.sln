@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11512.155 d18.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmersingPicker", "ImmersingPicker\ImmersingPicker.csproj", "{74379342-CB3A-479E-B807-6250ED654799}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmersingPicker.Core", "ImmersingPicker.Core\ImmersingPicker.Core.csproj", "{272FDDC8-B668-41DD-93AA-9B5D16C92FC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmersingPicker.Services", "ImmersingPicker.Services\ImmersingPicker.Services.csproj", "{C43AD744-0EB9-48CB-9981-3D31AE719BD7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74379342-CB3A-479E-B807-6250ED654799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74379342-CB3A-479E-B807-6250ED654799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74379342-CB3A-479E-B807-6250ED654799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74379342-CB3A-479E-B807-6250ED654799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{272FDDC8-B668-41DD-93AA-9B5D16C92FC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{272FDDC8-B668-41DD-93AA-9B5D16C92FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{272FDDC8-B668-41DD-93AA-9B5D16C92FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{272FDDC8-B668-41DD-93AA-9B5D16C92FC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C43AD744-0EB9-48CB-9981-3D31AE719BD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C43AD744-0EB9-48CB-9981-3D31AE719BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C43AD744-0EB9-48CB-9981-3D31AE719BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C43AD744-0EB9-48CB-9981-3D31AE719BD7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

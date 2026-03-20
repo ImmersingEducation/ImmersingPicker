@@ -1,0 +1,27 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:controls="clr-namespace:ImmersingPicker.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ImmersingPicker.Views.EditorPages.EditPage">
+        <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,Auto">
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Text="班级信息编辑器" FontSize="28"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="SemiBold"/>
+                <StackPanel Grid.Row="0" Grid.Column="1"
+                            Orientation="Horizontal" Spacing="5" Margin="5">
+                        <fa:FAComboBox x:Name="ClazzComboBox" Width="100" SelectionChanged="ClazzComboBox_OnSelectionChanged"/>
+                        <Button Content="新的班级" Width="100" Click="CreateClazzButton_OnClick"/>
+                        <Button Content="导入" Width="100" Click="ImportButton_OnClick"/>
+                        <Button x:Name="CreateStudentButton" Content="新的学生" Width="100" Click="CreateStudentButton_OnClick"/>
+                        <Button x:Name="SaveButton" Content="保存" Width="100" Click="SaveButton_OnClick"/>
+                </StackPanel>
+                
+                <controls:StudentEditTableView x:Name="StudentTableView" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
+                                               Margin="5"/>
+        </Grid>
+</UserControl>

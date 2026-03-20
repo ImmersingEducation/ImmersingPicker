@@ -1,0 +1,72 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <AssemblyVersion>0.1.0.2</AssemblyVersion>
+        <FileVersion>0.1.0.2</FileVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.3.11" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.3.11" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.11" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.11" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.11">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="FluentAvaloniaUI" Version="2.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Views\MainWindow.axaml.cs">
+        <DependentUpon>MainWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Remove="Views\MainPages\HomePage.cs" />
+      <Compile Update="Views\MainPages\HistoryPage.axaml.cs">
+        <DependentUpon>HistoryPage.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Views\SettingsPages\AboutPage.axaml.cs">
+        <DependentUpon>AboutPage.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Controls\StudentEditTableView.axaml.cs">
+        <DependentUpon>StudentEditTableView.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Views\SuspendingWindow.axaml.cs">
+        <DependentUpon>SuspendingWindow.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Views\SuspendingWindow\MovingControlButton.axaml.cs">
+        <DependentUpon>MovingControlButton.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Views\SuspendingWindow\EdgeIndicator.axaml.cs">
+        <DependentUpon>EdgeIndicator.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Controls\FilterDialog.axaml.cs">
+        <DependentUpon>FilterDialog.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Controls\EditableSeatGrid.axaml.cs">
+        <DependentUpon>EditableSeatGrid.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Controls\UniversalVerifyDialog.axaml.cs">
+        <DependentUpon>UniversalVerifyDialog.axaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ImmersingPicker.Core\ImmersingPicker.Core.csproj" />
+      <ProjectReference Include="..\ImmersingPicker.Services\ImmersingPicker.Services.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaResource Include="Assets\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Locales\" />
+    </ItemGroup>
+</Project>
