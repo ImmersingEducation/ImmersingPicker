@@ -5,8 +5,8 @@
         <Nullable>enable</Nullable>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-        <AssemblyVersion>0.1.0.2</AssemblyVersion>
-        <FileVersion>0.1.0.2</FileVersion>
+        <AssemblyVersion>0.2.0.2</AssemblyVersion>
+        <FileVersion>0.2.0.2</FileVersion>
         <ApplicationIcon>Assets/ipicker.ico</ApplicationIcon>
     </PropertyGroup>
 

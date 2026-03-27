@@ -32,7 +32,8 @@ public class VersionServices
     {
         public static Dictionary<Tuple<int, int>, string> Codenames = new()
         {
-            { new(0, 1), "Ellen" }
+            { new(0, 1), "Ellen" },
+            { new (0, 2), "Ellen" }
         };
 
         public int Major { get; set; }
