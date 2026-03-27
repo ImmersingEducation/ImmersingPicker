@@ -1,15 +1,17 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using ImmersingPicker.Controls;
 using ImmersingPicker.Services.Services;
 
 namespace ImmersingPicker.Views.SettingsPages;
 
-public partial class AboutPage : UserControl
+public partial class AboutPage : SettingsPageBase
 {
     public AboutPage()
     {
         InitializeComponent();
+        PageTitle.Text = "关于";
         VersionText.Text = VersionServices.VersionString(VersionServices.CurrentVersion);
     }
 

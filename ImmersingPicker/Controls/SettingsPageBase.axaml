@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:ipicker="clr-namespace:ImmersingPicker.Helpers"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ImmersingPicker.Controls.SettingsPageBase">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical" Margin="12" Spacing="12">
+                        <TextBlock x:Name="PageTitle"
+                                   FontSize="32"
+                                   FontWeight="SemiBold" />
+                        <ContentControl x:Name="PageContent" />
+                </StackPanel>
+        </ScrollViewer>
+</UserControl>

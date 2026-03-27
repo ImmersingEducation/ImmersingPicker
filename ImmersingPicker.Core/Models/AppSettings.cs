@@ -2,11 +2,8 @@ namespace ImmersingPicker.Core.Models;
 
 public class AppSettings
 {
-    public enum ThemeEnums
-    {
-        System, Light, Dark
-    }
-
+    public enum ThemeEnums { System, Light, Dark }
+    public enum PickAnimationPlayModeEnum { Auto, Manual, Direct }
     public enum SeatGridRowArrangementMode { T2B, B2T }
     public enum SeatGridColumnArrangementMode { L2R, R2L }
     public enum FloatingWindowDockPositionMode { Left, Right }
@@ -31,6 +28,7 @@ public class AppSettings
         WeightCalculationParam9 = 4;
         WeightCalculationParam10 = 9;
 
+        PickAnimationPlayMode = PickAnimationPlayModeEnum.Auto;
         HomeAnimationPlayAmount = 10;
         HomeAnimationPlayDelay = 100;
         SeatGridRowArrangement = SeatGridRowArrangementMode.T2B;
@@ -64,6 +62,7 @@ public class AppSettings
     public event Action<int> WeightCalculationParam9Changed;
     public event Action<int> WeightCalculationParam10Changed;
 
+    public event Action<PickAnimationPlayModeEnum> PickAnimationPlayModeChanged;
     public event Action<int> HomeAnimationPlayAmountChanged;
     public event Action<int> HomeAnimationPlayDelayChanged;
     public event Action<SeatGridRowArrangementMode> SeatGridRowArrangementChanged;
@@ -99,6 +98,7 @@ public class AppSettings
     private int _weightCalculationParam9;
     private int _weightCalculationParam10;
 
+    private PickAnimationPlayModeEnum _pickAnimationPlayMode;
     private int _homeAnimationPlayAmount;
     private int _homeAnimationPlayDelay;
     private SeatGridRowArrangementMode _seatGridRowArrangement;
@@ -266,6 +266,17 @@ public class AppSettings
         {
             _weightCalculationParam10 = value;
             WeightCalculationParam10Changed?.Invoke(value);
+            AnyChanged?.Invoke();
+        }
+    }
+
+    public PickAnimationPlayModeEnum PickAnimationPlayMode
+    {
+        get => _pickAnimationPlayMode;
+        set
+        {
+            _pickAnimationPlayMode = value;
+            PickAnimationPlayModeChanged?.Invoke(value);
             AnyChanged?.Invoke();
         }
     }

@@ -1,39 +1,34 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+<controls:SettingsPageBase xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:helpers="clr-namespace:ImmersingPicker.Helpers"
+             xmlns:controls="clr-namespace:ImmersingPicker.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ImmersingPicker.Views.SettingsPages.SecurityAndPrivacySettingsPage">
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto">
-                <StackPanel Orientation="Vertical" Margin="12" Spacing="12">
-                        <TextBlock Text="安全与隐私设置"
-                                   FontSize="32"
-                                   FontWeight="SemiBold"/>
-                        <fa:SettingsExpanderItem Content="启动密码保护" Description="开启后将在进行关键操作时进行密码校验" IconSource="{helpers:FluentIconSource &#xEA00;}">
-                                <fa:SettingsExpanderItem.Footer>
-                                        <ToggleSwitch x:Name="OpenPassword" OnContent="" OffContent=""
-                                                      IsCheckedChanged="OpenPassword_OnIsCheckedChanged"/>
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
-                        <fa:SettingsExpanderItem x:Name="SetPasswordItem" Content="密码设置" Description="设置密码校验时使用的密码" IconSource="{helpers:FluentIconSource &#xEC8A;}">
-                                <fa:SettingsExpanderItem.Footer>
-                                        <Button Content="开始设置" Click="SetPassword_OnClick"/>
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
-                        <fa:SettingsExpanderItem x:Name="EnableUsbSecurityCheckItem" Content="启动U盘辅助校验" Description="开启后将允许使用U盘代替密码校验" IconSource="">
-                                <fa:SettingsExpanderItem.Footer>
-                                        <ToggleSwitch x:Name="EnableUsbSecurityCheck" OnContent="" OffContent=""
-                                                      IsCheckedChanged="EnableUsbSecurityCheck_OnIsCheckedChanged"/>
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
-                        <fa:SettingsExpanderItem x:Name="SetUsbDriveItem" Content="校验U盘设置" Description="设置U盘校验时使用的U盘">
-                                <fa:SettingsExpanderItem.Footer>
-                                        <Button Content="开始设置" Click="SetUsbDrive_OnClick"/>
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
-                </StackPanel>
-        </ScrollViewer>
-</UserControl>
+        <StackPanel Orientation="Vertical" Spacing="12">
+                <fa:SettingsExpanderItem Content="启动密码保护" Description="开启后将在进行关键操作时进行密码校验" IconSource="{helpers:FluentIconSource &#xEA00;}">
+                        <fa:SettingsExpanderItem.Footer>
+                                <ToggleSwitch x:Name="OpenPassword" OnContent="" OffContent=""
+                                              IsCheckedChanged="OpenPassword_OnIsCheckedChanged"/>
+                        </fa:SettingsExpanderItem.Footer>
+                </fa:SettingsExpanderItem>
+                <fa:SettingsExpanderItem x:Name="SetPasswordItem" Content="密码设置" Description="设置密码校验时使用的密码" IconSource="{helpers:FluentIconSource &#xEC8A;}">
+                        <fa:SettingsExpanderItem.Footer>
+                                <Button Content="开始设置" Click="SetPassword_OnClick"/>
+                        </fa:SettingsExpanderItem.Footer>
+                </fa:SettingsExpanderItem>
+                <fa:SettingsExpanderItem x:Name="EnableUsbSecurityCheckItem" Content="启动U盘辅助校验" Description="开启后将允许使用U盘代替密码校验" IconSource="">
+                        <fa:SettingsExpanderItem.Footer>
+                                <ToggleSwitch x:Name="EnableUsbSecurityCheck" OnContent="" OffContent=""
+                                              IsCheckedChanged="EnableUsbSecurityCheck_OnIsCheckedChanged"/>
+                        </fa:SettingsExpanderItem.Footer>
+                </fa:SettingsExpanderItem>
+                <fa:SettingsExpanderItem x:Name="SetUsbDriveItem" Content="校验U盘设置" Description="设置U盘校验时使用的U盘">
+                        <fa:SettingsExpanderItem.Footer>
+                                <Button Content="开始设置" Click="SetUsbDrive_OnClick"/>
+                        </fa:SettingsExpanderItem.Footer>
+                </fa:SettingsExpanderItem>
+        </StackPanel>
+</controls:SettingsPageBase>

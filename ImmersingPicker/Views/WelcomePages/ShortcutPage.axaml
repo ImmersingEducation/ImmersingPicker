@@ -1,0 +1,16 @@
+<controls:WelcomePageBase xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:ImmersingPicker.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ImmersingPicker.Views.WelcomePages.ShortcutPage"
+             Title="快捷方式">
+    <controls:WelcomePageBase.PageContent>
+        <StackPanel Orientation="Vertical" Spacing="8" HorizontalAlignment="Center">
+            <TextBlock Text="请选择您需要创建快捷方式的区域" HorizontalAlignment="Center"/>
+            <CheckBox x:Name="DesktopShortcut" HorizontalAlignment="Center" Content="桌面快捷方式"/>
+            <CheckBox x:Name="StartMenuShortcut" HorizontalAlignment="Center" Content="开始菜单快捷方式"/>
+        </StackPanel>
+    </controls:WelcomePageBase.PageContent>
+</controls:WelcomePageBase>

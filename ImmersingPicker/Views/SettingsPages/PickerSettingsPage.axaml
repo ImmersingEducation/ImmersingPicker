@@ -1,69 +1,64 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+<controls:SettingsPageBase xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:ipicker="clr-namespace:ImmersingPicker.Helpers"
+             xmlns:controls="clr-namespace:ImmersingPicker.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ImmersingPicker.Views.SettingsPages.PickerSettingsPage">
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto">
-                <StackPanel Orientation="Vertical" Margin="12" Spacing="12">
-                        <TextBlock Text="抽选器设置"
-                                   FontSize="32"
-                                   FontWeight="SemiBold"/>
-                        <StackPanel Orientation="Vertical">
-                                <fa:SettingsExpanderItem Content="公平抽选参数之一" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <NumericUpDown x:Name="WeightCalculationParam1" ValueChanged="WeightCalculationParam1_OnValueChanged" FormatString="0.00" Increment="0.01"/>
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                                <fa:SettingsExpanderItem Content="公平抽选参数之二" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <NumericUpDown x:Name="WeightCalculationParam2" ValueChanged="WeightCalculationParam2_OnValueChanged" FormatString="0.00" Increment="0.01"/>
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                                <fa:SettingsExpanderItem Content="公平抽选参数之三" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <NumericUpDown x:Name="WeightCalculationParam3" ValueChanged="WeightCalculationParam3_OnValueChanged" FormatString="0"/>
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                                <fa:SettingsExpanderItem Content="公平抽选参数之四" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <NumericUpDown x:Name="WeightCalculationParam4" ValueChanged="WeightCalculationParam4_OnValueChanged" FormatString="0.00" Increment="0.01"/>
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                                <fa:SettingsExpanderItem Content="公平抽选参数之五" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <NumericUpDown x:Name="WeightCalculationParam5" ValueChanged="WeightCalculationParam5_OnValueChanged" FormatString="0.00" Increment="0.01"/>
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                                <fa:SettingsExpanderItem Content="公平抽选参数之六" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <NumericUpDown x:Name="WeightCalculationParam6" ValueChanged="WeightCalculationParam6_OnValueChanged" FormatString="0.00" Increment="0.01"/>
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                                <fa:SettingsExpanderItem Content="公平抽选参数之七" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <NumericUpDown x:Name="WeightCalculationParam7" ValueChanged="WeightCalculationParam7_OnValueChanged" FormatString="0"/>
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                                <fa:SettingsExpanderItem Content="公平抽选参数之八" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <NumericUpDown x:Name="WeightCalculationParam8" ValueChanged="WeightCalculationParam8_OnValueChanged" FormatString="0"/>
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                                <fa:SettingsExpanderItem Content="公平抽选参数之九" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <NumericUpDown x:Name="WeightCalculationParam9" ValueChanged="WeightCalculationParam9_OnValueChanged" FormatString="0"/>
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                                <fa:SettingsExpanderItem Content="公平抽选参数之十" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <NumericUpDown x:Name="WeightCalculationParam10" ValueChanged="WeightCalculationParam10_OnValueChanged" FormatString="0"/>
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                        </StackPanel>
+        <StackPanel Orientation="Vertical" Spacing="12">
+                <StackPanel Orientation="Vertical">
+                        <fa:SettingsExpanderItem Content="公平抽选参数之一" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <NumericUpDown x:Name="WeightCalculationParam1" ValueChanged="WeightCalculationParam1_OnValueChanged" FormatString="0.00" Increment="0.01"/>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                        <fa:SettingsExpanderItem Content="公平抽选参数之二" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <NumericUpDown x:Name="WeightCalculationParam2" ValueChanged="WeightCalculationParam2_OnValueChanged" FormatString="0.00" Increment="0.01"/>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                        <fa:SettingsExpanderItem Content="公平抽选参数之三" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <NumericUpDown x:Name="WeightCalculationParam3" ValueChanged="WeightCalculationParam3_OnValueChanged" FormatString="0"/>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                        <fa:SettingsExpanderItem Content="公平抽选参数之四" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <NumericUpDown x:Name="WeightCalculationParam4" ValueChanged="WeightCalculationParam4_OnValueChanged" FormatString="0.00" Increment="0.01"/>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                        <fa:SettingsExpanderItem Content="公平抽选参数之五" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <NumericUpDown x:Name="WeightCalculationParam5" ValueChanged="WeightCalculationParam5_OnValueChanged" FormatString="0.00" Increment="0.01"/>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                        <fa:SettingsExpanderItem Content="公平抽选参数之六" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <NumericUpDown x:Name="WeightCalculationParam6" ValueChanged="WeightCalculationParam6_OnValueChanged" FormatString="0.00" Increment="0.01"/>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                        <fa:SettingsExpanderItem Content="公平抽选参数之七" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <NumericUpDown x:Name="WeightCalculationParam7" ValueChanged="WeightCalculationParam7_OnValueChanged" FormatString="0"/>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                        <fa:SettingsExpanderItem Content="公平抽选参数之八" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <NumericUpDown x:Name="WeightCalculationParam8" ValueChanged="WeightCalculationParam8_OnValueChanged" FormatString="0"/>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                        <fa:SettingsExpanderItem Content="公平抽选参数之九" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <NumericUpDown x:Name="WeightCalculationParam9" ValueChanged="WeightCalculationParam9_OnValueChanged" FormatString="0"/>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                        <fa:SettingsExpanderItem Content="公平抽选参数之十" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <NumericUpDown x:Name="WeightCalculationParam10" ValueChanged="WeightCalculationParam10_OnValueChanged" FormatString="0"/>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
                 </StackPanel>
-        </ScrollViewer>
-</UserControl>
+        </StackPanel>
+</controls:SettingsPageBase>

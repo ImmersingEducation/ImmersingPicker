@@ -29,7 +29,7 @@ public class FairStudentPicker(Clazz clazz) : PickerBase(clazz)
     private List<Student> CalculateAvailablePickStudents()
     {
         _logger.Debug("开始计算可抽选学生列表");
-        List<Student> tmpStudents = _clazz.Students;
+        List<Student> tmpStudents = [.._clazz.Students];
         int availableRange = CalculateRange(tmpStudents);
         
         _logger.Verbose("初始范围：{Range}, 参数阈值：{Threshold}", availableRange, AppSettings.Instance.WeightCalculationParam9);
@@ -60,7 +60,14 @@ public class FairStudentPicker(Clazz clazz) : PickerBase(clazz)
         foreach (Student student in _clazz.Students)
         {
             double oldWeight = student.Weight;
-            student.Weight = student.Weight <= student.InitialWeight ? student.InitialWeight : Math.Log(student.Weight);
+            if (student.Weight <= student.InitialWeight || student.Weight <= 0)
+            {
+                student.Weight = student.InitialWeight;
+            }
+            else
+            {
+                student.Weight = Math.Log(student.Weight);
+            }
             if (oldWeight != student.Weight)
             {
                 _logger.Verbose("学生 {Name} 权重重置：{OldWeight} -> {NewWeight}", student.Name, oldWeight, student.Weight);
@@ -75,7 +82,11 @@ public class FairStudentPicker(Clazz clazz) : PickerBase(clazz)
             // 历史次数惩罚
             if (available.Contains(student))
             {
-                var change = Math.Pow(student.SelectedAmount - average, AppSettings.Instance.WeightCalculationParam1);
+                var change = Math.Pow(Math.Abs(student.SelectedAmount - average), AppSettings.Instance.WeightCalculationParam1);
+                if (student.SelectedAmount < average)
+                {
+                    change = -change;
+                }
                 student.Weight += change;
                 weightChange += change;
                 _logger.Verbose("学生 {Name} 历史次数惩罚：{Change}", student.Name, change);

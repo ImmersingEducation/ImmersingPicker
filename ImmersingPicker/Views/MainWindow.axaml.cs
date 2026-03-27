@@ -26,7 +26,7 @@ public partial class MainWindow : AppWindow
         TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
 
         _logger.Verbose("初始化导航服务");
-        MainWindowNavigationService.Initialize(ContentFrame, this);
+        MainWindowNavigationService.Instance.Initialize(ContentFrame, this);
         _logger.Information("主窗口导航服务初始化完成");
         
         // Closing 事件在 App.axaml.cs 中统一处理
@@ -49,7 +49,7 @@ public partial class MainWindow : AppWindow
             "Settings" => MainWindowNavigationService.ViewType.Settings,
             _ => throw new ArgumentException("Invalid view type")
         };
-        MainWindowNavigationService.NavigateTo(viewType);
+        MainWindowNavigationService.Instance.NavigateTo(viewType);
         if (viewType is MainWindowNavigationService.ViewType.Settings or MainWindowNavigationService.ViewType.Editor)
         {
             MainNavView.SelectedItem = HomePageItem;

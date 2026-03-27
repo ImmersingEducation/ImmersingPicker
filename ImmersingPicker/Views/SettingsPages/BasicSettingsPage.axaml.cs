@@ -1,28 +1,30 @@
-﻿using Avalonia.Controls;
+using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using ImmersingPicker.Controls;
 using ImmersingPicker.Core.Models;
 
 namespace ImmersingPicker.Views.SettingsPages;
 
-public partial class BasicSettingsPage : UserControl
+public partial class BasicSettingsPage : SettingsPageBase
 {
     public BasicSettingsPage()
     {
         InitializeComponent();
+        PageTitle.Text = "基础设置";
         LoadSettings();
     }
 
-    private void LoadSettings()
+    protected override void LoadSettings()
     {
         // 加载开机自启动设置
-        LaunchOnSystemStart.IsChecked = AppSettings.Instance.LaunchOnSystemStart;
+        LaunchOnSystemStart.IsChecked = AppSettings.LaunchOnSystemStart;
 
         // 加载URL协议与IPC服务设置
-        OpenUrlAndIpc.IsChecked = AppSettings.Instance.OpenUrlAndIpc;
+        OpenUrlAndIpc.IsChecked = AppSettings.OpenUrlAndIpc;
 
         // 加载主题设置
-        AppTheme.SelectedIndex = AppSettings.Instance.AppTheme switch
+        AppTheme.SelectedIndex = AppSettings.AppTheme switch
         {
             AppSettings.ThemeEnums.System => 2,
             AppSettings.ThemeEnums.Light => 0,
@@ -31,10 +33,10 @@ public partial class BasicSettingsPage : UserControl
         };
 
         // 加载主题颜色设置
-        if (!string.IsNullOrEmpty(AppSettings.Instance.AppThemeColor))
+        if (!string.IsNullOrEmpty(AppSettings.AppThemeColor))
             try
             {
-                AppThemeColor.Color = Color.Parse(AppSettings.Instance.AppThemeColor);
+                AppThemeColor.Color = Color.Parse(AppSettings.AppThemeColor);
             }
             catch
             {
@@ -43,17 +45,17 @@ public partial class BasicSettingsPage : UserControl
 
     private void LaunchOnSystemStart_OnIsCheckedChanged(object? sender, RoutedEventArgs e)
     {
-        AppSettings.Instance.LaunchOnSystemStart = LaunchOnSystemStart.IsChecked ?? false;
+        AppSettings.LaunchOnSystemStart = LaunchOnSystemStart.IsChecked ?? false;
     }
 
     private void OpenUrlAndIpc_OnIsCheckedChanged(object? sender, RoutedEventArgs e)
     {
-        AppSettings.Instance.OpenUrlAndIpc = OpenUrlAndIpc.IsChecked ?? false;
+        AppSettings.OpenUrlAndIpc = OpenUrlAndIpc.IsChecked ?? false;
     }
 
     private void AppTheme_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        AppSettings.Instance.AppTheme = AppTheme.SelectedIndex switch
+        AppSettings.AppTheme = AppTheme.SelectedIndex switch
         {
             0 => AppSettings.ThemeEnums.Light,
             1 => AppSettings.ThemeEnums.Dark,
@@ -64,6 +66,6 @@ public partial class BasicSettingsPage : UserControl
 
     private void AppThemeColor_OnColorChanged(object? sender, ColorChangedEventArgs e)
     {
-        AppSettings.Instance.AppThemeColor = AppThemeColor.Color.ToString();
+        AppSettings.AppThemeColor = AppThemeColor.Color.ToString();
     }
 }

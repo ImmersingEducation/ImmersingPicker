@@ -1,4 +1,4 @@
-﻿using Avalonia;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
@@ -15,7 +15,7 @@ public partial class WelcomeWindow : AppWindow
     public WelcomeWindow()
     {
         InitializeComponent();
-        WelcomeWindowNavigationService.Initialize(ContentFrame);
-        WelcomeWindowNavigationService.NavigateTo(WelcomeWindowNavigationService.ViewType.Welcome);
+        WelcomeWindowNavigationService.Instance.Initialize(ContentFrame, this);
+        WelcomeWindowNavigationService.Instance.NavigateTo(WelcomeWindowNavigationService.ViewType.Welcome);
     }
 }

@@ -1,52 +1,47 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+<controls:SettingsPageBase xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:ipicker="clr-namespace:ImmersingPicker.Helpers"
+             xmlns:controls="clr-namespace:ImmersingPicker.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ImmersingPicker.Views.SettingsPages.BasicSettingsPage">
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto">
-                <StackPanel Orientation="Vertical" Margin="12" Spacing="12">
-                        <TextBlock Text="基础设置"
-                                   FontSize="32"
-                                   FontWeight="SemiBold" />
-                        <StackPanel Orientation="Vertical">
-                                <fa:SettingsExpanderItem Content="是否开机自启动" Description="选择“是”后，在电脑启动时，软件将自动启动"
+        <StackPanel Orientation="Vertical" Spacing="12">
+                <StackPanel Orientation="Vertical">
+                        <fa:SettingsExpanderItem Content="是否开机自启动" Description="选择「是」后，在电脑启动时，软件将自动启动"
                                                          IconSource="{ipicker:FluentIconSource &#xEDE8;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <ToggleSwitch x:Name="LaunchOnSystemStart" OnContent="" OffContent=""
+                                <fa:SettingsExpanderItem.Footer>
+                                        <ToggleSwitch x:Name="LaunchOnSystemStart" OnContent="" OffContent=""
                                                               IsCheckedChanged="LaunchOnSystemStart_OnIsCheckedChanged" />
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                                <fa:SettingsExpanderItem Content="URL协议与IPC服务"
-                                                         Description="选择“是”后，将注册URL协议并开通IPC服务，允许其他软件调用本软件功能（未完成）"
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                        <fa:SettingsExpanderItem Content="URL协议与IPC服务"
+                                                         Description="选择「是」后，将注册URL协议并开通IPC服务，允许其他软件调用本软件功能（未完成）"
                                                          IconSource="{ipicker:FluentIconSource &#xE908;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <ToggleSwitch x:Name="OpenUrlAndIpc" OnContent="" OffContent=""
+                                <fa:SettingsExpanderItem.Footer>
+                                        <ToggleSwitch x:Name="OpenUrlAndIpc" OnContent="" OffContent=""
                                                               IsCheckedChanged="OpenUrlAndIpc_OnIsCheckedChanged" />
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                                <fa:SettingsExpanderItem Content="软件主题" Description="软件使用的主题"
-                                                         IconSource="{ipicker:FluentIconSource &#xE5CA;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <fa:FAComboBox x:Name="AppTheme" SelectionChanged="AppTheme_OnSelectionChanged">
-                                                        <fa:FAComboBoxItem Content="亮色" />
-                                                        <fa:FAComboBoxItem Content="暗色" />
-                                                        <fa:FAComboBoxItem Content="跟随系统" />
-                                                </fa:FAComboBox>
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                                <fa:SettingsExpanderItem Content="软件主题颜色" Description="软件使用的主题色和强调色"
-                                                         IconSource="{ipicker:FluentIconSource &#xE51F;}">
-                                        <fa:SettingsExpanderItem.Footer>
-                                                <ColorPicker x:Name="AppThemeColor" ColorChanged="AppThemeColor_OnColorChanged" />
-                                        </fa:SettingsExpanderItem.Footer>
-                                </fa:SettingsExpanderItem>
-                        </StackPanel>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
                 </StackPanel>
-        </ScrollViewer>
-</UserControl>
+                <StackPanel Orientation="Vertical">
+                        <fa:SettingsExpanderItem Content="软件主题" Description="软件使用的主题"
+                                                         IconSource="{ipicker:FluentIconSource &#xE5CA;}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <fa:FAComboBox x:Name="AppTheme" SelectionChanged="AppTheme_OnSelectionChanged">
+                                                <fa:FAComboBoxItem Content="亮色" />
+                                                <fa:FAComboBoxItem Content="暗色" />
+                                                <fa:FAComboBoxItem Content="跟随系统" />
+                                        </fa:FAComboBox>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                        <fa:SettingsExpanderItem Content="软件主题颜色" Description="软件使用的主题色和强调色"
+                                                         IconSource="{ipicker:FluentIconSource &#xE51F;}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <ColorPicker x:Name="AppThemeColor" ColorChanged="AppThemeColor_OnColorChanged" />
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                </StackPanel>
+        </StackPanel>
+</controls:SettingsPageBase>

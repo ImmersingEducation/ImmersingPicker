@@ -61,6 +61,13 @@ public class Clazz
         return clazz;
     }
 
+    public static void SetCurrentClazz(string name)
+    {
+        var clazz = GetClazz(name);
+        if (clazz is null) return;
+        CurrentClassIndex = Classes.IndexOf(clazz);
+    }
+
     public static Clazz? GetClazz(int index)
     {
         _logger.Verbose("获取班级，索引：{Index}", index);
@@ -70,7 +77,18 @@ public class Clazz
             return null;
         }
         return Classes[index];
+    }
 
+    public static Clazz? GetClazz(string name)
+    {
+        foreach (var @class in Classes)
+        {
+            if (@class.Name == name)
+            {
+                return @class;
+            }
+        }
+        return null;
     }
 
     public static bool CheckIfNameExists(string name)

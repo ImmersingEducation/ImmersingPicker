@@ -1,26 +1,28 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
+using ImmersingPicker.Controls;
 using ImmersingPicker.Core.Models;
 
 namespace ImmersingPicker.Views.SettingsPages;
 
-public partial class FloatingWindowSettingsPage : UserControl
+public partial class FloatingWindowSettingsPage : SettingsPageBase
 {
     public FloatingWindowSettingsPage()
     {
         InitializeComponent();
+        PageTitle.Text = "浮窗设置";
         LoadSettings();
-        UpdateControlsEnabledState();
+        UpdateControlsState();
     }
 
-    private void LoadSettings()
+    protected override void LoadSettings()
     {
         // 加载浮窗启用状态
-        FloatingWindowEnabled.IsChecked = AppSettings.Instance.FloatingWindowEnabled;
+        FloatingWindowEnabled.IsChecked = AppSettings.FloatingWindowEnabled;
 
         // 加载停靠位置设置
-        FloatingWindowDockPosition.SelectedIndex = AppSettings.Instance.FloatingWindowDockPosition switch
+        FloatingWindowDockPosition.SelectedIndex = AppSettings.FloatingWindowDockPosition switch
         {
             AppSettings.FloatingWindowDockPositionMode.Left => 0,
             AppSettings.FloatingWindowDockPositionMode.Right => 1,
@@ -28,10 +30,10 @@ public partial class FloatingWindowSettingsPage : UserControl
         };
 
         // 加载竖向位置设置
-        FloatingWindowVerticalPosition.Value = AppSettings.Instance.FloatingWindowVerticalPosition;
+        FloatingWindowVerticalPosition.Value = AppSettings.FloatingWindowVerticalPosition;
     }
 
-    private void UpdateControlsEnabledState()
+    protected override void UpdateControlsState()
     {
         bool enabled = FloatingWindowEnabled.IsChecked ?? false;
         FloatingWindowDockPosition.IsEnabled = enabled;
@@ -40,13 +42,13 @@ public partial class FloatingWindowSettingsPage : UserControl
 
     private void FloatingWindowEnabled_OnIsCheckedChanged(object? sender, RoutedEventArgs e)
     {
-        AppSettings.Instance.FloatingWindowEnabled = FloatingWindowEnabled.IsChecked ?? false;
-        UpdateControlsEnabledState();
+        AppSettings.FloatingWindowEnabled = FloatingWindowEnabled.IsChecked ?? false;
+        UpdateControlsState();
     }
 
     private void FloatingWindowDockPosition_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        AppSettings.Instance.FloatingWindowDockPosition = FloatingWindowDockPosition.SelectedIndex switch
+        AppSettings.FloatingWindowDockPosition = FloatingWindowDockPosition.SelectedIndex switch
         {
             0 => AppSettings.FloatingWindowDockPositionMode.Left,
             1 => AppSettings.FloatingWindowDockPositionMode.Right,
@@ -56,6 +58,6 @@ public partial class FloatingWindowSettingsPage : UserControl
 
     private void FloatingWindowVerticalPosition_OnValueChanged(object? sender, RangeBaseValueChangedEventArgs e)
     {
-        AppSettings.Instance.FloatingWindowVerticalPosition = (int)FloatingWindowVerticalPosition.Value;
+        AppSettings.FloatingWindowVerticalPosition = (int)FloatingWindowVerticalPosition.Value;
     }
 }

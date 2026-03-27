@@ -35,7 +35,7 @@ public partial class StudentEditTableView : UserControl
         UpdateStudentList();
     }
     
-    private void UpdateStudentList()
+    public void UpdateStudentList()
     {
         StudentsStackPanel.Children.Clear();
         

@@ -1,23 +1,19 @@
-﻿using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
-using Avalonia.Media;
 using FluentAvalonia.UI.Controls;
-using ImmersingPicker.Core.Models;
+using ImmersingPicker.Controls;
 using ImmersingPicker.Services;
 
 namespace ImmersingPicker.Views.WelcomePages;
 
-public partial class LicensePage : UserControl
+public partial class LicensePage : WelcomePageBase
 {
     public LicensePage()
     {
         InitializeComponent();
-        NextButton.Background = Brush.Parse(AppSettings.Instance.AppThemeColor);
+        NextButtonClick += OnNextButtonClick;
     }
 
-    private async void NextButton_OnClick(object? sender, RoutedEventArgs e)
+    private async void OnNextButtonClick(object? sender, RoutedEventArgs e)
     {
         if (!(FreeSoftwareLicense.IsChecked ?? false))
         {
@@ -31,7 +27,7 @@ public partial class LicensePage : UserControl
         }
         else
         {
-            WelcomeWindowNavigationService.NavigateTo(WelcomeWindowNavigationService.ViewType.ClazzInitialization);
+            WelcomeWindowNavigationService.Instance.NavigateTo(WelcomeWindowNavigationService.ViewType.ClazzInitialization);
         }
     }
 }

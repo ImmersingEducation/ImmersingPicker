@@ -1,24 +1,39 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
-using ImmersingPicker.Core.Models;
+using ImmersingPicker.Controls;
 using ImmersingPicker.Services;
 using ImmersingPicker.Services.Services;
 
 namespace ImmersingPicker.Views.WelcomePages;
 
-public partial class WelcomePage : UserControl
+public partial class WelcomePage : WelcomePageBase
 {
     public WelcomePage()
     {
         InitializeComponent();
-        VersionText.Text = VersionServices.VersionString(VersionServices.CurrentVersion);
-        StartButton.Background = Brush.Parse(AppSettings.Instance.AppThemeColor);
+        Loaded += OnLoaded;
+    }
+
+    private void OnLoaded(object? sender, RoutedEventArgs e)
+    {
+        if (VersionText is not null)
+        {
+            VersionText.Text = VersionServices.VersionString(VersionServices.CurrentVersion);
+        }
+        if (StartButton != null && !string.IsNullOrEmpty(AppSettings.AppThemeColor))
+        {
+            try
+            {
+                StartButton.Background = Brush.Parse(AppSettings.AppThemeColor);
+            }
+            catch
+            {
+            }
+        }
     }
 
     private void GithubHyperlinkButton_OnClick(object? sender, RoutedEventArgs e)
@@ -45,6 +60,6 @@ public partial class WelcomePage : UserControl
 
     private void StartButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        WelcomeWindowNavigationService.NavigateTo(WelcomeWindowNavigationService.ViewType.License);
+        WelcomeWindowNavigationService.Instance.NavigateTo(WelcomeWindowNavigationService.ViewType.License);
     }
 }

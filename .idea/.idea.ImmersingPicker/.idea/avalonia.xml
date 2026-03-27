@@ -5,12 +5,15 @@
       <map>
         <entry key="ImmersingPicker/App.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Components/Seat.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
+        <entry key="ImmersingPicker/Controls/BatchSeatEditDialog.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Controls/FilterDialog.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Controls/HistoryItem.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
+        <entry key="ImmersingPicker/Controls/ImportClazzDialog.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Controls/PasswordVerifyDialog.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Controls/Seat.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Controls/SeatGrid.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Controls/SecurityVerifyDialog.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
+        <entry key="ImmersingPicker/Controls/SettingsPageBase.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Controls/StudentEditTableView.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Controls/StudentEditTableViewItem.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Controls/UniversalVerifyDialog.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
@@ -19,6 +22,7 @@
         <entry key="ImmersingPicker/Views/EditorPages/EditPage.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/EditorWindow.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/FloatingWindow.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
+        <entry key="ImmersingPicker/Views/InstanceExistsWindow.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/MainPages/HistoryPage.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/MainPages/HomePage.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/MainWindow.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
@@ -35,7 +39,9 @@
         <entry key="ImmersingPicker/Views/SuspendingWindow/MovingControlButton.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/WelcomePages/AppearancePage.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/WelcomePages/ClazzInitializationPage.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
+        <entry key="ImmersingPicker/Views/WelcomePages/CongratulationPage.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/WelcomePages/LicensePage.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
+        <entry key="ImmersingPicker/Views/WelcomePages/ShortcutPage.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/WelcomePages/WelcomePage.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/WelcomeWindow.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/Window1.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />

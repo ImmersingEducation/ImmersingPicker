@@ -1,29 +1,24 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+<controls:SettingsPageBase xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:ipicker="clr-namespace:ImmersingPicker.Helpers"
+             xmlns:controls="clr-namespace:ImmersingPicker.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ImmersingPicker.Views.SettingsPages.LinkageSettingsPage">
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto">
-                <StackPanel Orientation="Vertical" Margin="12" Spacing="12">
-                        <TextBlock Text="主界面设置"
-                                   FontSize="32"
-                                   FontWeight="SemiBold"/>
-                        <fa:SettingsExpanderItem Content="启动 ClassIsland 跨进程联动" Description="开启后可通过 IPC 接收 ClassIsland 课程事件，需提前安装（未完成）" IconSource="{ipicker:FluentIconSource &#xE479;}">
-                                <fa:SettingsExpanderItem.Footer>
-                                        <ToggleSwitch x:Name="EnableClassIslandLinkage" OnContent="" OffContent="" IsEnabled="False"
-                                                      IsCheckedChanged="EnableClassIslandLinkage_OnIsCheckedChanged"/>
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
-                        <fa:SettingsExpanderItem x:Name="EnableDisablingAfterClassItem" Content="启动课间禁用" Description="开启后，当 ClassIsland 课间休息事件触发时，将禁用大部分功能，建议设置密码（未完成）" IconSource="{ipicker:FluentIconSource &#xEE0E;}">
-                                <fa:SettingsExpanderItem.Footer>
-                                        <ToggleSwitch x:Name="EnableDisablingAfterClasses" OnContent="" OffContent=""
-                                                      IsCheckedChanged="EnableDisablingAfterClasses_OnIsCheckedChanged"/>
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
-                </StackPanel>
-        </ScrollViewer>
-</UserControl>
+        <StackPanel Orientation="Vertical" Spacing="12">
+                <fa:SettingsExpanderItem Content="启动 ClassIsland 跨进程联动" Description="开启后可通过 IPC 接收 ClassIsland 课程事件，需提前安装" IconSource="{ipicker:FluentIconSource &#xE479;}">
+                        <fa:SettingsExpanderItem.Footer>
+                                <ToggleSwitch x:Name="EnableClassIslandLinkage" OnContent="" OffContent=""
+                                              IsCheckedChanged="EnableClassIslandLinkage_OnIsCheckedChanged"/>
+                        </fa:SettingsExpanderItem.Footer>
+                </fa:SettingsExpanderItem>
+                <fa:SettingsExpanderItem x:Name="EnableDisablingAfterClassItem" Content="启动课间禁用" Description="开启后，当 ClassIsland 课间休息事件触发时，将禁用大部分功能，建议设置密码" IconSource="{ipicker:FluentIconSource &#xEE0E;}">
+                        <fa:SettingsExpanderItem.Footer>
+                                <ToggleSwitch x:Name="EnableDisablingAfterClass" OnContent="" OffContent=""
+                                              IsCheckedChanged="EnableDisablingAfterClasses_OnIsCheckedChanged"/>
+                        </fa:SettingsExpanderItem.Footer>
+                </fa:SettingsExpanderItem>
+        </StackPanel>
+</controls:SettingsPageBase>
