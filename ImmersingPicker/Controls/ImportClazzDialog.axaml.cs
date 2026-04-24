@@ -128,6 +128,17 @@ public partial class ImportClazzDialog : UserControl
         try
         {
             var path = storage[0].Path.LocalPath;
+            var fileName = Path.GetFileNameWithoutExtension(path);
+            
+            if (Clazz.CheckIfNameExists(fileName))
+            {
+                return new ImportResult 
+                { 
+                    Success = false, 
+                    ErrorMessage = $"已存在名为\"{fileName}\"的班级，请使用其他文件名或重命名文件。" 
+                };
+            }
+            
             var studentsWithoutSeat = ImportClazzService.FromSecRandom(path);
             var students = new List<Student>();
             int id = 1;
@@ -146,7 +157,35 @@ public partial class ImportClazzDialog : UserControl
                 });
                 id++;
             }
-            return new ImportResult { Success = true, Students = students };
+            
+            var seatEditDialog = new SecRandomSeatEditDialog(students);
+            var contentDialog = new ContentDialog
+            {
+                Title = $"设置座位 - {fileName}",
+                Content = seatEditDialog,
+                PrimaryButtonText = null,
+                CloseButtonText = null,
+                IsPrimaryButtonEnabled = false,
+                IsSecondaryButtonEnabled = false
+            };
+            
+            await contentDialog.ShowAsync(parentWindow);
+            
+            if (seatEditDialog.SaveClicked)
+            {
+                var newClazz = ClazzFactory.NewClazz(fileName, students);
+                return new ImportResult 
+                { 
+                    Success = true, 
+                    Students = students,
+                    NewClazz = newClazz,
+                    ShowBatchEditDialog = true
+                };
+            }
+            else
+            {
+                return new ImportResult { Success = false };
+            }
         }
         catch (Exception ex)
         {

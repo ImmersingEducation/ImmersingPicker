@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using ImmersingPicker.Services.Helper;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -18,6 +19,18 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+        {
+            if (e.ExceptionObject is Exception ex)
+            {
+                if (ex is TaskCanceledException or OperationCanceledException or ObjectDisposedException)
+                {
+                    return;
+                }
+                Log.Fatal(ex, "未处理的异常");
+            }
+        };
+
         var logDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
         Directory.CreateDirectory(logDirectory);
         var logFileName = $"log-{DateTime.Now:yyyy-MM-dd-HH-mm-ss}.txt";
@@ -38,7 +51,7 @@ class Program
                 path: logFilePath,
                 outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] [{Level}] [{SourceContext}] {Message}{NewLine}{Exception}",
                 rollingInterval: RollingInterval.Day,
-                fileSizeLimitBytes: 5 * 1024 * 1024, // 5MB
+                fileSizeLimitBytes: 5 * 1024 * 1024,
                 rollOnFileSizeLimit: true,
                 shared: true,
                 encoding: Encoding.UTF8
@@ -51,15 +64,31 @@ class Program
         {
             appBuilder.StartWithClassicDesktopLifetime(args);
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is not TaskCanceledException and not OperationCanceledException)
         {
             Log.Fatal(ex, "遇到了无法回退的错误。");
         }
-        
-        // 应用程序退出时的处理
-        if (appBuilder.Instance is App app)
+        finally
         {
-            app.Shutdown();
+            if (appBuilder.Instance is App app)
+            {
+                try
+                {
+                    app.Shutdown();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "应用程序关闭清理时发生错误");
+                }
+            }
+
+            try
+            {
+                Log.CloseAndFlush();
+            }
+            catch
+            {
+            }
         }
     }
 

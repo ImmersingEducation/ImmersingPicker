@@ -3,9 +3,9 @@
 > **简单，公平，有趣** - 一款基于座位表的课堂随机抽选软件
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![.NET 9](https://img.shields.io/badge/.NET-9.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
+[![.NET 10](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
 [![Avalonia UI](https://img.shields.io/badge/Avalonia-11.3-0078D4?logo=nuget)](https://avaloniaui.net/)
-[![Version](https://img.shields.io/badge/version-0.1.0.2--Alpha-ff69b4)](https://github.com/ImmersingEducation/ImmersingPicker/releases)
+[![Version](https://img.shields.io/badge/version-0.3.0--Beta-ff69b4)](https://github.com/ImmersingEducation/ImmersingPicker/releases)
 
 ---
 
@@ -30,7 +30,7 @@ ImmersingPicker 是一款专为课堂设计的**随机抽选软件**，通过可
 ### 系统要求
 
 - **操作系统**: Windows 10/11
-- **.NET 运行时**: .NET 9.0 或更高版本
+- **.NET 运行时**: .NET 10.0 或更高版本
 - **内存**: 最低 512MB RAM
 - **磁盘空间**: 100MB 可用空间
 
@@ -65,7 +65,7 @@ dotnet build -c Release
 dotnet publish -c Release -r win-x64 --self-contained
 ```
 
-编译产物位于 `ImmersingPicker/bin/Release/net9.0/` 目录。
+编译产物位于 `ImmersingPicker/bin/Release/net10.0/` 目录。
 
 ---
 
@@ -229,7 +229,7 @@ ImmersingPicker/
 
 ### 技术栈
 
-- **.NET 9** - 跨平台运行时
+- **.NET 10** - 跨平台运行时
 - **Avalonia UI 11.3** - 跨平台 UI 框架
 - **FluentAvaloniaUI 2.4** - Fluent Design 控件库
 - **Serilog** - 结构化日志记录

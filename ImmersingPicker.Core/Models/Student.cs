@@ -6,10 +6,12 @@ public class Student
     public int Id { get; set; }
     public int SeatRow { get; set; }
     public int SeatColumn { get; set; }
+    public HashSet<Tag> Tags { get; set; }
     public double InitialWeight { get; set; } = 1.0;
     public DateTime? LastSelectedTime { get; set; } = null;
     public int SelectedAmount { get; set; } = 0;
     public double Weight { get; set; } = 0.0;
+    public int VisitingCount { get; set; } = 0;
 
     public Student()
     {
@@ -17,9 +19,10 @@ public class Student
         Id = 0;
         SeatRow = 0;
         SeatColumn = 0;
+        Tags = new HashSet<Tag>();
     }
 
-    public Student(string name, int id, int seatRow, int seatColumn)
+    public Student(string name, int id, int seatRow, int seatColumn, HashSet<Tag> tags)
     {
         if (id <= 0)
         {
@@ -31,6 +34,7 @@ public class Student
             Id = id;
             SeatRow = seatRow;
             SeatColumn = seatColumn;
+            Tags = tags;
         }
     }
 
@@ -68,4 +72,11 @@ public class Student
     {
         return !(left == right);
     }
+}
+
+
+public class StudentWithoutSeat
+{
+    public string Name { get; set; }
+    public int Id { get; set; }
 }

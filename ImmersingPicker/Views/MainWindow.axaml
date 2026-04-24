@@ -9,7 +9,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ImmersingPicker.Views.MainWindow"
         Loaded="MainWindow_Loaded"
-        Title="Immersing Picker - 主界面"
+        Title="ImmersingPicker - 主界面"
         Width="800" Height="600">
         <fa:NavigationView x:Name="MainNavView"
                            PaneDisplayMode="LeftCompact"

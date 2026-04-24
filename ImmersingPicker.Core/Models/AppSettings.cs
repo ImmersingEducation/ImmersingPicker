@@ -3,6 +3,7 @@ namespace ImmersingPicker.Core.Models;
 public class AppSettings
 {
     public enum ThemeEnums { System, Light, Dark }
+    public enum FairPickerModeEnum { Normal, Nonredundant }
     public enum PickAnimationPlayModeEnum { Auto, Manual, Direct }
     public enum SeatGridRowArrangementMode { T2B, B2T }
     public enum SeatGridColumnArrangementMode { L2R, R2L }
@@ -17,6 +18,7 @@ public class AppSettings
         AppTheme = ThemeEnums.System;
         AppThemeColor = "#ffffb900";
 
+        FairPickerMode =  FairPickerModeEnum.Normal;
         WeightCalculationParam1 = 0.49;
         WeightCalculationParam2 = 1.23;
         WeightCalculationParam3 = 3;
@@ -51,6 +53,7 @@ public class AppSettings
     public event Action<ThemeEnums> AppThemeChanged;
     public event Action<string> AppThemeColorChanged;
 
+    public event Action<FairPickerModeEnum> FairPickerModeChanged;
     public event Action<double> WeightCalculationParam1Changed;
     public event Action<double> WeightCalculationParam2Changed;
     public event Action<int> WeightCalculationParam3Changed;
@@ -80,6 +83,11 @@ public class AppSettings
     public event Action<bool> EnableDisablingAfterClassesChanged;
     public event Action<bool> IsFirstLaunchChanged;
 
+    public event Action<bool> AutoCheckUpdateEnabledChanged;
+    public event Action<bool> AllowPrereleaseUpdatesChanged;
+    public event Action<DateTime> LastUpdateCheckTimeChanged;
+    public event Action<string> SkippedUpdateVersionChanged;
+
     public event Action AnyChanged;
 
     private bool _launchOnSystemStart;
@@ -87,6 +95,7 @@ public class AppSettings
     private ThemeEnums _appTheme;
     private string _appThemeColor;
 
+    private FairPickerModeEnum _fairPickerMode;
     private double _weightCalculationParam1;
     private double _weightCalculationParam2;
     private int _weightCalculationParam3;
@@ -115,6 +124,11 @@ public class AppSettings
 
     private bool _enableClassIslandLinkage;
     private bool _enableDisablingAfterClasses;
+
+    private bool _autoCheckUpdateEnabled = true;
+    private bool _allowPrereleaseUpdates = false;
+    private DateTime _lastUpdateCheckTime = DateTime.MinValue;
+    private string _skippedUpdateVersion = string.Empty;
 
     public bool LaunchOnSystemStart
     {
@@ -156,6 +170,17 @@ public class AppSettings
         {
             _appThemeColor = value;
             AppThemeColorChanged?.Invoke(value);
+            AnyChanged?.Invoke();
+        }
+    }
+
+    public FairPickerModeEnum FairPickerMode
+    {
+        get => _fairPickerMode;
+        set
+        {
+            _fairPickerMode = value;
+            FairPickerModeChanged?.Invoke(value);
             AnyChanged?.Invoke();
         }
     }
@@ -430,6 +455,50 @@ public class AppSettings
         {
             _isFirstLaunch = value;
             IsFirstLaunchChanged?.Invoke(value);
+            AnyChanged?.Invoke();
+        }
+    }
+
+    public bool AutoCheckUpdateEnabled
+    {
+        get => _autoCheckUpdateEnabled;
+        set
+        {
+            _autoCheckUpdateEnabled = value;
+            AutoCheckUpdateEnabledChanged?.Invoke(value);
+            AnyChanged?.Invoke();
+        }
+    }
+
+    public bool AllowPrereleaseUpdates
+    {
+        get => _allowPrereleaseUpdates;
+        set
+        {
+            _allowPrereleaseUpdates = value;
+            AllowPrereleaseUpdatesChanged?.Invoke(value);
+            AnyChanged?.Invoke();
+        }
+    }
+
+    public DateTime LastUpdateCheckTime
+    {
+        get => _lastUpdateCheckTime;
+        set
+        {
+            _lastUpdateCheckTime = value;
+            LastUpdateCheckTimeChanged?.Invoke(value);
+            AnyChanged?.Invoke();
+        }
+    }
+
+    public string SkippedUpdateVersion
+    {
+        get => _skippedUpdateVersion;
+        set
+        {
+            _skippedUpdateVersion = value;
+            SkippedUpdateVersionChanged?.Invoke(value);
             AnyChanged?.Invoke();
         }
     }

@@ -8,6 +8,16 @@ public static class ClazzFactory
 {
     private static readonly ILogger _logger = Log.ForContext(typeof(ClazzFactory));
 
+    private static readonly Dictionary<string, PickerBase> _pickers = new();
+
+    public static IReadOnlyDictionary<string, PickerBase> Pickers => _pickers;
+
+    static ClazzFactory()
+    {
+        _pickers["FairStudentPicker"] = new FairStudentPicker();
+        _pickers["PlainStudentPicker"] = new PlainStudentPicker();
+    }
+
     public static Clazz NewClazz(string name, List<Student>? students = null, List<History>? histories = null)
     {
         _logger.Information("创建新班级：{Name}", name);
@@ -28,12 +38,8 @@ public static class ClazzFactory
             histories ?? new List<History>()
         );
 
-        _logger.Debug("创建抽选器实例");
-        _ = new FairStudentPicker(newClazz);
-        _logger.Verbose("FairStudentPicker 创建成功");
-        
-        _ = new PlainStudentPicker(newClazz);
-        _logger.Verbose("PlainStudentPicker 创建成功");
+        _logger.Debug("添加抽选器引用");
+        newClazz.Pickers = new Dictionary<string, PickerBase>(_pickers);
 
         if (Clazz.Classes.Count == 1)
         {

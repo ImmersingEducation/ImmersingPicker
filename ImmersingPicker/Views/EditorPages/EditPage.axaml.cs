@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
-using Avalonia.Controls.Primitives;
 using FluentAvalonia.UI.Controls;
+using ImmersingPicker.Controls;
 using ImmersingPicker.Core;
 using ImmersingPicker.Core.Abstractions.Picker;
 using ImmersingPicker.Core.Models;
@@ -18,6 +19,7 @@ namespace ImmersingPicker.Views.EditorPages;
 
 public partial class EditPage : UserControl
 {
+    private Clazz? _currentClazz;
     public bool IsModified { get; set; } = false;
 
     public EditPage()
@@ -30,24 +32,17 @@ public partial class EditPage : UserControl
     private void InitializeClazzComboBox()
     {
         ClazzComboBox.Items.Clear();
-        
+
         foreach (var clazz in Clazz.Classes)
         {
             ClazzComboBox.Items.Add(clazz.Name);
         }
-        
+
         if (Clazz.Classes.Count > 0)
         {
             ClazzComboBox.SelectedIndex = 0;
-            if (StudentTableView == null)
-            {
-                StudentTableView = new Controls.StudentEditTableView(Clazz.Classes[0]);
-                StudentTableView.DataChanged += OnStudentTableDataChanged;
-            }
-            else
-            {
-                StudentTableView.SetClazz(Clazz.Classes[0]);
-            }
+            _currentClazz = Clazz.Classes[0];
+            UpdateStudentCards();
         }
         UpdateCreateStudentButtonState();
     }
@@ -64,10 +59,80 @@ public partial class EditPage : UserControl
     {
         if (ClazzComboBox.SelectedIndex >= 0 && ClazzComboBox.SelectedIndex < Clazz.Classes.Count)
         {
-            var selectedClazz = Clazz.Classes[ClazzComboBox.SelectedIndex];
-            StudentTableView.SetClazz(selectedClazz);
+            _currentClazz = Clazz.Classes[ClazzComboBox.SelectedIndex];
+            UpdateStudentCards();
         }
         UpdateCreateStudentButtonState();
+    }
+
+    private void UpdateStudentCards()
+    {
+        StudentsWrapPanel.Children.Clear();
+
+        if (_currentClazz != null)
+        {
+            // 按学号排序
+            var sortedStudents = _currentClazz.Students.OrderBy(s => s.Id).ToList();
+
+            foreach (var student in sortedStudents)
+            {
+                var card = new StudentCard { Student = student };
+                card.EditRequested += OnEditRequested;
+                card.DeleteRequested += OnDeleteRequested;
+                StudentsWrapPanel.Children.Add(card);
+            }
+        }
+    }
+
+    private async void OnEditRequested(Student student)
+    {
+        var editDialog = new StudentEditCardDialog(student);
+
+        var dialog = new ContentDialog
+        {
+            Content = editDialog,
+            PrimaryButtonText = "保存",
+            CloseButtonText = "取消",
+            DefaultButton = ContentDialogButton.Primary
+        };
+
+        if (TopLevel.GetTopLevel(this) is Window parentWindow)
+        {
+            var result = await dialog.ShowAsync(parentWindow);
+            if (result == ContentDialogResult.Primary)
+            {
+                var updatedStudent = editDialog.GetUpdatedStudent();
+                if (updatedStudent != null)
+                {
+                    // 触发自动保存
+                    await AutoSave();
+                }
+            }
+        }
+    }
+
+    private async void OnDeleteRequested(Student student)
+    {
+        // 弹出删除确认
+        var dialog = new ContentDialog
+        {
+            Title = "删除确认",
+            Content = $"确定要删除学生 {student.Name} 吗？",
+            PrimaryButtonText = "删除",
+            CloseButtonText = "取消",
+            DefaultButton = ContentDialogButton.Primary
+        };
+
+        if (TopLevel.GetTopLevel(this) is Window parentWindow)
+        {
+            var result = await dialog.ShowAsync(parentWindow);
+            if (result == ContentDialogResult.Primary && _currentClazz != null)
+            {
+                _currentClazz.RemoveStudent(student.Id);
+                UpdateStudentCards();
+                await AutoSave();
+            }
+        }
     }
 
     private async void CreateClazzButton_OnClick(object? sender, RoutedEventArgs e)
@@ -131,64 +196,33 @@ public partial class EditPage : UserControl
 
     private async void CreateStudentButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        if (ClazzComboBox.SelectedIndex < 0)
+        if (ClazzComboBox.SelectedIndex < 0 || _currentClazz == null)
             return;
-        
-        // 弹出弹窗输入学生信息
-        var grid = new Grid { RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto") };
-        
-        // 姓名
-        var nameTextBlock = new TextBlock { Text = "姓名：", Margin = new Thickness(0, 0, 0, 5), HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left };
-        Grid.SetRow(nameTextBlock, 0);
-        grid.Children.Add(nameTextBlock);
-        
-        var nameTextBox = new TextBox { HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch, Margin = new Thickness(0, 0, 0, 10) };
-        Grid.SetRow(nameTextBox, 1);
-        grid.Children.Add(nameTextBox);
-        
-        // 学号
-        var idTextBlock = new TextBlock { Text = "学号：", Margin = new Thickness(0, 0, 0, 5), HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left };
-        Grid.SetRow(idTextBlock, 2);
-        grid.Children.Add(idTextBlock);
-        
-        var idTextBox = new TextBox { HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch, Margin = new Thickness(0, 0, 0, 10) };
-        Grid.SetRow(idTextBox, 3);
-        grid.Children.Add(idTextBox);
-        
-        // 座位
-        var seatTextBlock = new TextBlock { Text = "座位（行,列）：", Margin = new Thickness(0, 0, 0, 5), HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left };
-        Grid.SetRow(seatTextBlock, 4);
-        grid.Children.Add(seatTextBlock);
-        
-        var seatPanel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 10, Margin = new Thickness(0, 0, 0, 10) };
-        var rowTextBox = new TextBox { Width = 50, Watermark = "行" };
-        var columnTextBox = new TextBox { Width = 50, Watermark = "列" };
-        seatPanel.Children.Add(rowTextBox);
-        seatPanel.Children.Add(new TextBlock { Text = ",", VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center });
-        seatPanel.Children.Add(columnTextBox);
-        Grid.SetRow(seatPanel, 5);
-        grid.Children.Add(seatPanel);
-        
+
+        // 使用卡片样式的编辑对话框
+        var editDialog = new StudentEditCardDialog();
+
         var dialog = new ContentDialog
         {
-            Title = "新建学生",
-            Content = grid,
+            Content = editDialog,
             PrimaryButtonText = "确认",
             CloseButtonText = "取消",
             DefaultButton = ContentDialogButton.Primary
         };
-        
+
         var parentWindow = TopLevel.GetTopLevel(this) as Window;
         if (parentWindow != null)
         {
             var result = await dialog.ShowAsync(parentWindow);
-            if (result == ContentDialogResult.Primary && !string.IsNullOrEmpty(nameTextBox.Text) && 
-                int.TryParse(idTextBox.Text, out int id) && int.TryParse(rowTextBox.Text, out int row) && 
-                int.TryParse(columnTextBox.Text, out int column))
+            if (result == ContentDialogResult.Primary)
             {
-                var student = new Student(nameTextBox.Text, id, row, column);
-                StudentTableView.AddStudent(student);
-                await AutoSave();
+                var student = editDialog.GetUpdatedStudent();
+                if (student != null && !string.IsNullOrEmpty(student.Name) && student.Id > 0)
+                {
+                    _currentClazz.AddStudent(student.Name, student.Id, (student.SeatRow, student.SeatColumn), student.Tags);
+                    UpdateStudentCards();
+                    await AutoSave();
+                }
             }
         }
     }
@@ -224,7 +258,7 @@ public partial class EditPage : UserControl
     private async void SaveButton_OnClick(object? sender, RoutedEventArgs e)
     {
         await AutoSave();
-        
+
         // 显示保存成功提示
         var parentWindow = TopLevel.GetTopLevel(this) as Window;
         if (parentWindow != null)
@@ -237,11 +271,6 @@ public partial class EditPage : UserControl
             };
             await dialog.ShowAsync(parentWindow);
         }
-    }
-
-    private async void OnStudentTableDataChanged()
-    {
-        await AutoSave();
     }
 
     private async void ImportButton_OnClick(object? sender, RoutedEventArgs e)
@@ -320,7 +349,7 @@ public partial class EditPage : UserControl
         {
             var selectedClazz = Clazz.Classes[ClazzComboBox.SelectedIndex];
             selectedClazz.Students.AddRange(result.Students);
-            StudentTableView.UpdateStudentList();
+            UpdateStudentCards();
             await AutoSave();
 
             var successDialog = new ContentDialog
@@ -353,7 +382,7 @@ public partial class EditPage : UserControl
 
         if (result == ContentDialogResult.Primary && batchDialog.SaveClicked)
         {
-            StudentTableView.UpdateStudentList();
+            UpdateStudentCards();
             await AutoSave();
 
             var successDialog = new ContentDialog
@@ -410,9 +439,9 @@ public partial class EditPage : UserControl
             {
                 if (batchDialog.SaveClicked)
                 {
-                    StudentTableView.UpdateStudentList();
+                    UpdateStudentCards();
                     await AutoSave();
-                    
+
                     var successDialog = new ContentDialog
                     {
                         Title = "保存成功",

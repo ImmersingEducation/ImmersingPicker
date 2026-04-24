@@ -22,6 +22,7 @@
         <entry key="ImmersingPicker/Views/EditorPages/EditPage.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/EditorWindow.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/FloatingWindow.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
+        <entry key="ImmersingPicker/Views/ImmersivePickingWindow.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/InstanceExistsWindow.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/MainPages/HistoryPage.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />
         <entry key="ImmersingPicker/Views/MainPages/HomePage.axaml" value="ImmersingPicker/ImmersingPicker.csproj" />

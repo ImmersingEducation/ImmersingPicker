@@ -2,31 +2,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Windowing;
-using ImmersingPicker.Controls;
-using ImmersingPicker.Core;
 using ImmersingPicker.Core.Exceptions;
 using ImmersingPicker.Core.Models;
 using ImmersingPicker.Helpers;
 using ImmersingPicker.Services.Services;
 using Serilog;
 
-namespace ImmersingPicker.Views.MainPages;
+namespace ImmersingPicker.Views;
 
-public partial class HomePage : UserControl
+public partial class ImmersivePickingWindow: AppWindow
 {
-    private static readonly ILogger _logger = Log.ForContext<HomePage>();
+    private static readonly ILogger _logger = Log.ForContext<ImmersivePickingWindow>();
     private int _amountForPicking;
 
     private bool _isPicking = false;
 
     private Clazz? _clazz;
+
+    public event EventHandler? WindowActivated;
+    public event EventHandler? WindowDeactivated;
 
     private int AmountForPicking
     {
@@ -53,10 +52,11 @@ public partial class HomePage : UserControl
         }
     }
 
-    public HomePage()
+    public ImmersivePickingWindow()
     {
         _logger.Information("初始化HomePage");
         InitializeComponent();
+        Seats.MagnifyingLens = 1.2;
         _logger.Verbose("添加班级变更事件处理");
         Clazz.CurrentClassChanged += Reset;
         _logger.Verbose("添加班级下拉框选择变更事件处理");
@@ -64,6 +64,11 @@ public partial class HomePage : UserControl
         _logger.Verbose("执行重置操作");
         Reset();
         _logger.Information("HomePage初始化完成");
+        WindowState = WindowState.FullScreen;
+        Topmost = true;
+        
+        Activated += (s, e) => WindowActivated?.Invoke(this, EventArgs.Empty);
+        Deactivated += (s, e) => WindowDeactivated?.Invoke(this, EventArgs.Empty);
     }
 
     private void ClazzComboBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -113,14 +118,7 @@ public partial class HomePage : UserControl
 
                 if (result == ContentDialogResult.Primary)
                 {
-                    var parentWindow = this.GetVisualRoot() as AppWindow;
-                    if (parentWindow == null)
-                    {
-                        _logger.Warning("无法获取父窗口");
-                        return;
-                    }
-
-                    bool verified = await VerifyHelper.VerifyPassword(parentWindow);
+                    bool verified = await VerifyHelper.VerifyPassword(this);
 
                     if (!verified) return;
                 }
@@ -155,7 +153,7 @@ public partial class HomePage : UserControl
                 return;
             }
 
-            if (!currentClazz.Pickers.ContainsKey("FairStudentPicker") || 
+            if (!currentClazz.Pickers.ContainsKey("FairStudentPicker") ||
                 !currentClazz.Pickers.ContainsKey("PlainStudentPicker"))
             {
                 _logger.Error("抽选器不存在");
@@ -276,7 +274,7 @@ public partial class HomePage : UserControl
         _logger.Verbose("重置抽选数量为1");
         _amountForPicking = 1;
         PickButton.Content = $"共{_amountForPicking}人  开始抽选！";
-        
+
         // 更新班级下拉框
         _logger.Verbose("更新班级下拉框");
         ClazzComboBox.SelectionChanged -= ClazzComboBox_OnSelectionChanged;
@@ -287,7 +285,7 @@ public partial class HomePage : UserControl
             _logger.Debug("添加班级到下拉框: {ClassName}", clazz.Name);
             ClazzComboBox.Items.Add(clazz.Name);
         }
-        
+
         // 选择当前班级
         if (_clazz != null)
         {
@@ -300,5 +298,10 @@ public partial class HomePage : UserControl
         }
         ClazzComboBox.SelectionChanged += ClazzComboBox_OnSelectionChanged;
         _logger.Information("重置完成");
+    }
+
+    private void MinimizeButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        this.Close();
     }
 }

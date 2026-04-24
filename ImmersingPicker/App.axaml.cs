@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading;
 using System.Timers;
 using Avalonia;
@@ -10,6 +12,7 @@ using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Windowing;
 using ImmersingPicker.Views;
 using ImmersingPicker.Core.Models;
+using ImmersingPicker.Core.Abstractions.Picker;
 using ImmersingPicker.Services.Services.Picker;
 using ImmersingPicker.Services.Services.Storage;
 using ImmersingPicker.Services.Services;
@@ -30,8 +33,16 @@ public partial class App : Application
 
     private Timer? _autoSaveTimer;
     private AppWindow? _mainWindow;
+    private ImmersivePickingWindow? _immersivePickingWindow;
     private FloatingWindow? _floatingWindow;
     private WelcomeWindow? _welcomeWindow;
+
+    private bool _isMainWindowActive;
+    private bool _isImmersivePickingWindowActive;
+    private bool _isImmersivePickingWindowClosed;
+    private bool _hasCheckedForUpdates = false;
+
+    public static readonly HttpClient HttpClient = new();
 
     public override void Initialize()
     {
@@ -160,17 +171,13 @@ public partial class App : Application
                 _logger.Warning("使用默认应用设置");
             }
 
-            // 为每个 Clazz 创建对应的 Picker 实例（如果还没有的话）
+            // 为每个 Clazz 设置对应的 Picker 实例（如果还没有的话）
             foreach (var clazz in Clazz.Classes)
             {
-                if (!clazz.Pickers.ContainsKey("FairStudentPicker"))
+                if (!clazz.Pickers.ContainsKey("FairStudentPicker") || 
+                    !clazz.Pickers.ContainsKey("PlainStudentPicker"))
                 {
-                    new FairStudentPicker(clazz);
-                }
-
-                if (!clazz.Pickers.ContainsKey("PlainStudentPicker"))
-                {
-                    new PlainStudentPicker(clazz);
+                    clazz.Pickers = new Dictionary<string, PickerBase>(Services.Services.Picker.ClazzFactory.Pickers);
                 }
             }
 
@@ -189,20 +196,28 @@ public partial class App : Application
                 {
                     _logger.Information("非首次启动，显示主窗口");
                     _mainWindow = new MainWindow();
+                    _immersivePickingWindow = new ImmersivePickingWindow();
                     desktop.MainWindow = _mainWindow;
 
                     _logger.Information("创建悬浮窗口实例");
                     _floatingWindow = new FloatingWindow();
-                    _floatingWindow.FloatingWindowClicked += ShowMainWindow;
+                    _floatingWindow.FloatingWindowClicked += ShowImmersivePickingWindow;
 
                     _mainWindow.Closing += MainWindow_Closing;
                     _mainWindow.Deactivated += MainWindow_Deactivated;
                     _mainWindow.Activated += MainWindow_Activated;
 
+                    _immersivePickingWindow.WindowActivated += ImmersivePickingWindow_Activated;
+                    _immersivePickingWindow.WindowDeactivated += ImmersivePickingWindow_Deactivated;
+                    _immersivePickingWindow.Closing += ImmersivePickingWindow_Closing;
+
                     AppSettings.Instance.FloatingWindowEnabledChanged += OnFloatingWindowEnabledChanged;
                     AppSettings.Instance.FloatingWindowDockPositionChanged += OnFloatingWindowSettingsChanged;
                     AppSettings.Instance.FloatingWindowVerticalPositionChanged += OnFloatingWindowSettingsChanged;
                     _logger.Information("悬浮窗口及事件监听初始化完成");
+
+                    // 启动时自动检查更新 (延迟 5 秒,避免阻塞启动)
+                    StartUpdateCheckOnStartup();
                 }
             }
 
@@ -306,19 +321,62 @@ public partial class App : Application
             _logger.Error(ex, "保存应用设置失败，可能导致设置丢失");
         }
         
+        try
+        {
+            _logger.Verbose("清理事件订阅");
+            AppSettings.Instance.EnableClassIslandLinkageChanged -= OnEnableClassIslandLinkageChanged;
+            AppSettings.Instance.FloatingWindowEnabledChanged -= OnFloatingWindowEnabledChanged;
+            AppSettings.Instance.FloatingWindowDockPositionChanged -= OnFloatingWindowSettingsChanged;
+            AppSettings.Instance.FloatingWindowVerticalPositionChanged -= OnFloatingWindowSettingsChanged;
+            _floatingWindow.FloatingWindowClicked -= ShowImmersivePickingWindow;
+            _mainWindow.Closing -= MainWindow_Closing;
+            _mainWindow.Deactivated -= MainWindow_Deactivated;
+            _mainWindow.Activated -= MainWindow_Activated;
+            if (_immersivePickingWindow != null)
+            {
+                _immersivePickingWindow.WindowActivated -= ImmersivePickingWindow_Activated;
+                _immersivePickingWindow.WindowDeactivated -= ImmersivePickingWindow_Deactivated;
+                _immersivePickingWindow.Closing -= ImmersivePickingWindow_Closing;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.Warning(ex, "清理事件订阅时发生错误，可忽略");
+        }
+        
         _logger.Information("应用程序关闭清理操作完成");
     }
 
     public void ShowMainWindow(object? sender, EventArgs e)
     {
         _logger.Information("显示主窗口");
-        if (_mainWindow != null)
+        if (_mainWindow is not null)
         {
             _mainWindow.Show();
             _mainWindow.Activate();
             _mainWindow.Focus();
         }
 
+        _floatingWindow?.HideFloatingWindow();
+    }
+
+    public void ShowImmersivePickingWindow(object? sender, EventArgs e)
+    {
+        if (_immersivePickingWindow is not null)
+        {
+            if (_isImmersivePickingWindowClosed)
+            {
+                _logger.Information("沉浸式抽选窗口已关闭，重新创建窗口");
+                _immersivePickingWindow = new ImmersivePickingWindow();
+                _immersivePickingWindow.WindowActivated += ImmersivePickingWindow_Activated;
+                _immersivePickingWindow.WindowDeactivated += ImmersivePickingWindow_Deactivated;
+                _immersivePickingWindow.Closing += ImmersivePickingWindow_Closing;
+                _isImmersivePickingWindowClosed = false;
+            }
+            _immersivePickingWindow.Show();
+            _immersivePickingWindow.Activate();
+            _immersivePickingWindow.Focus();
+        }
         _floatingWindow?.HideFloatingWindow();
     }
 
@@ -382,11 +440,8 @@ public partial class App : Application
     private void MainWindow_Deactivated(object? sender, EventArgs e)
     {
         _logger.Information("主窗口失去焦点");
-        // 显示悬浮窗口（如果已启用）
-        if (AppSettings.Instance.FloatingWindowEnabled)
-        {
-            _floatingWindow?.ShowFloatingWindow();
-        }
+        _isMainWindowActive = false;
+        CheckFloatingWindowVisibility();
     }
 
     /// <summary>
@@ -395,8 +450,53 @@ public partial class App : Application
     private void MainWindow_Activated(object? sender, EventArgs e)
     {
         _logger.Information("主窗口获得焦点");
-        // 隐藏悬浮窗口
+        _isMainWindowActive = true;
         _floatingWindow?.HideFloatingWindow();
+    }
+
+    /// <summary>
+    /// 沉浸式抽选窗口失去焦点事件处理
+    /// </summary>
+    private void ImmersivePickingWindow_Deactivated(object? sender, EventArgs e)
+    {
+        _logger.Information("沉浸式抽选窗口失去焦点");
+        _isImmersivePickingWindowActive = false;
+        CheckFloatingWindowVisibility();
+    }
+
+    /// <summary>
+    /// 沉浸式抽选窗口获得焦点事件处理
+    /// </summary>
+    private void ImmersivePickingWindow_Activated(object? sender, EventArgs e)
+    {
+        _logger.Information("沉浸式抽选窗口获得焦点");
+        _isImmersivePickingWindowActive = true;
+        _floatingWindow?.HideFloatingWindow();
+    }
+
+    /// <summary>
+    /// 沉浸式抽选窗口关闭事件处理
+    /// </summary>
+    private void ImmersivePickingWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+    {
+        _logger.Information("沉浸式抽选窗口正在关闭");
+        _isImmersivePickingWindowActive = false;
+        _isImmersivePickingWindowClosed = true;
+    }
+
+    /// <summary>
+    /// 检查是否应该显示悬浮窗口
+    /// </summary>
+    private void CheckFloatingWindowVisibility()
+    {
+        if (AppSettings.Instance.FloatingWindowEnabled)
+        {
+            if (!_isMainWindowActive && !_isImmersivePickingWindowActive)
+            {
+                _logger.Information("两个窗口都不在前台，显示悬浮窗口");
+                _floatingWindow?.ShowFloatingWindow();
+            }
+        }
     }
 
     /// <summary>
@@ -443,7 +543,103 @@ public partial class App : Application
         else
         {
             _logger.Information("ClassIsland 联动功能已禁用");
-            // TODO: 如果需要，可以在这里添加清理逻辑
+        }
+    }
+
+    /// <summary>
+    /// 启动时自动检查更新
+    /// </summary>
+    private async void StartUpdateCheckOnStartup()
+    {
+        // 如果禁用自动检查更新,则跳过
+        if (!AppSettings.Instance.AutoCheckUpdateEnabled)
+        {
+            _logger.Information("自动检查更新已禁用,跳过启动时检查");
+            return;
+        }
+
+        // 避免重复检查
+        if (_hasCheckedForUpdates)
+        {
+            return;
+        }
+
+        _logger.Information("等待 5 秒后开始启动时更新检查...");
+
+        // 延迟 5 秒,避免阻塞启动
+        await Task.Delay(5000);
+
+        _hasCheckedForUpdates = true;
+
+        try
+        {
+            _logger.Information("开始启动时更新检查...");
+
+            var (result, updateInfo) = await UpdateService.Instance.CheckForUpdatesAsync(
+                AppSettings.Instance.AllowPrereleaseUpdates);
+
+            // 更新最后检查时间
+            AppSettings.Instance.LastUpdateCheckTime = DateTime.Now;
+
+            // 处理检查结果
+            if (result == UpdateCheckResult.UpdateAvailable && updateInfo != null)
+            {
+                _logger.Information("启动时发现新版本: {Version}", updateInfo.Version);
+                
+                // 如果主窗口不在前台，发送系统通知
+                if (!_isMainWindowActive)
+                {
+                    SystemNotificationService.Instance.ShowUpdateAvailableNotification(
+                        updateInfo.Version,
+                        updateInfo.ReleaseNotes);
+                }
+                
+                await ShowUpdateDialogForAppAsync(updateInfo);
+            }
+            else if (result == UpdateCheckResult.NoUpdate)
+            {
+                _logger.Information("启动时检查: 当前已是最新版本");
+            }
+            else if (result == UpdateCheckResult.Cancelled)
+            {
+                _logger.Information("启动时检查: 用户已跳过此版本");
+            }
+            else
+            {
+                _logger.Warning("启动时检查: 检查更新失败或出错");
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "启动时检查更新发生错误");
+        }
+    }
+
+    /// <summary>
+    /// 显示更新对话框 (从 App 调用)
+    /// </summary>
+    private async Task ShowUpdateDialogForAppAsync(ImmersingPicker.Core.Models.UpdateInfo updateInfo)
+    {
+        if (_mainWindow == null)
+        {
+            _logger.Warning("主窗口为空,无法显示更新对话框");
+            return;
+        }
+
+        try
+        {
+            var dialog = new FluentAvalonia.UI.Controls.ContentDialog
+            {
+                Title = null,
+                Content = new Views.Dialogs.UpdateDialog(updateInfo),
+                FullSizeDesired = false
+            };
+            
+            await dialog.ShowAsync(_mainWindow);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "显示更新对话框失败");
         }
     }
 

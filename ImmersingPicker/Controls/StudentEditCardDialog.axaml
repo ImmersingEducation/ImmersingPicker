@@ -1,0 +1,92 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="500"
+             x:Class="ImmersingPicker.Controls.StudentEditCardDialog">
+    <Border CornerRadius="8" Padding="20"
+            Background="{DynamicResource SystemControlPageBackgroundAltHighBrush}"
+            BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+            BorderThickness="1">
+        <StackPanel Spacing="15">
+            <!-- 标题 -->
+            <TextBlock x:Name="DialogTitleText" Text="学生信息" FontSize="20" FontWeight="SemiBold"
+                       Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                       HorizontalAlignment="Center"/>
+            
+            <!-- 分隔线 -->
+            <Border Height="2" Background="{DynamicResource SystemControlHighlightBaseMediumBrush}" CornerRadius="1"/>
+            
+            <!-- 姓名 -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="姓名" FontWeight="SemiBold" FontSize="14"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                <TextBox x:Name="NameTextBox" 
+                         Padding="10,8"
+                         CornerRadius="4"
+                         Watermark="请输入学生姓名"
+                         Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                         BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+            </StackPanel>
+            
+            <!-- 学号 -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="学号" FontWeight="SemiBold" FontSize="14"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                <TextBox x:Name="IdTextBox" 
+                         Padding="10,8"
+                         CornerRadius="4"
+                         Watermark="请输入学号（数字）"
+                         Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                         BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+            </StackPanel>
+            
+            <!-- 座位 -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="座位" FontWeight="SemiBold" FontSize="14"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                <Grid ColumnDefinitions="*,Auto,*">
+                    <TextBox x:Name="SeatRowTextBox" Grid.Column="0"
+                             Padding="10,8"
+                             CornerRadius="4"
+                             Watermark="行"
+                             Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                             BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+                    <TextBlock Grid.Column="1" Text="," FontSize="16" FontWeight="Bold"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Margin="10,0"/>
+                    <TextBox x:Name="SeatColumnTextBox" Grid.Column="2"
+                             Padding="10,8"
+                             CornerRadius="4"
+                             Watermark="列"
+                             Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                             BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+                </Grid>
+            </StackPanel>
+            
+            <!-- 初始权重 -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="初始权重" FontWeight="SemiBold" FontSize="14"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                <TextBox x:Name="InitialWeightTextBox" 
+                         Padding="10,8"
+                         CornerRadius="4"
+                         Watermark="请输入初始权重（数字）"
+                         Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                         BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+            </StackPanel>
+            
+            <!-- 抽选次数 -->
+            <StackPanel Spacing="5">
+                <TextBlock Text="抽选次数" FontWeight="SemiBold" FontSize="14"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                <TextBox x:Name="SelectedAmountTextBox" 
+                         Padding="10,8"
+                         CornerRadius="4"
+                         Watermark="请输入抽选次数（数字）"
+                         Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                         BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

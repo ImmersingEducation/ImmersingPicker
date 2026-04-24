@@ -27,6 +27,7 @@ public class SettingsWindowNavigationService : NavigationServiceBase
                 ViewType.SecurityAndPrivacySettings => typeof(Views.SettingsPages.SecurityAndPrivacySettingsPage),
                 ViewType.FloatingWindowSettings => typeof(Views.SettingsPages.FloatingWindowSettingsPage),
                 ViewType.LinkageSettings => typeof(Views.SettingsPages.LinkageSettingsPage),
+                ViewType.UpdateSettings => typeof(Views.SettingsPages.UpdateSettingsPage),
                 _ => throw new ArgumentException("Invalid view type")
             };
             _logger.Verbose("解析视图类型为: {TargetType}", targetType.Name);
@@ -46,6 +47,7 @@ public class SettingsWindowNavigationService : NavigationServiceBase
         SecurityAndPrivacySettings,
         FloatingWindowSettings,
         LinkageSettings,
+        UpdateSettings,
         About
     }
 }

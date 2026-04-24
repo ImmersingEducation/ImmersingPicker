@@ -1,0 +1,46 @@
+<controls:SettingsPageBase xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:ipicker="clr-namespace:ImmersingPicker.Helpers"
+             xmlns:controls="clr-namespace:ImmersingPicker.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ImmersingPicker.Views.SettingsPages.UpdateSettingsPage">
+        <StackPanel Orientation="Vertical" Spacing="12">
+                <!-- 当前版本信息 -->
+                <fa:SettingsExpanderItem Content="当前版本" Description="检查并安装更新"
+                                         IconSource="{ipicker:FluentIconSource &#xE896;}">
+                        <fa:SettingsExpanderItem.Footer>
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                        <TextBlock x:Name="CurrentVersionText" VerticalAlignment="Center"/>
+                                        <Button x:Name="CheckUpdateButton" Content="检查更新"
+                                                        Click="CheckUpdateButton_OnClick"
+                                                        Padding="16,8"/>
+                                        <Button x:Name="UpdateInfoButton" Content="更新说明"
+                                                        Click="UpdateInfoButton_OnClick"
+                                                        Padding="16,8"/>
+                                </StackPanel>
+                        </fa:SettingsExpanderItem.Footer>
+                </fa:SettingsExpanderItem>
+
+                <!-- 更新设置 -->
+                <fa:SettingsExpanderItem Content="自动检查更新"
+                                         Description="启动时自动检查是否有新版本可用"
+                                         IconSource="{ipicker:FluentIconSource &#xE917;}">
+                        <fa:SettingsExpanderItem.Footer>
+                                <ToggleSwitch x:Name="AutoCheckUpdateToggle"
+                                              IsCheckedChanged="AutoCheckUpdateToggle_OnIsCheckedChanged"/>
+                        </fa:SettingsExpanderItem.Footer>
+                </fa:SettingsExpanderItem>
+
+                <fa:SettingsExpanderItem Content="允许预发布版本"
+                                         Description="检查更新时包括 Alpha/Beta 等预发布版本"
+                                         IconSource="{ipicker:FluentIconSource &#xE946;}">
+                        <fa:SettingsExpanderItem.Footer>
+                                <ToggleSwitch x:Name="AllowPrereleaseToggle"
+                                              IsCheckedChanged="AllowPrereleaseToggle_OnIsCheckedChanged"/>
+                        </fa:SettingsExpanderItem.Footer>
+                </fa:SettingsExpanderItem>
+        </StackPanel>
+</controls:SettingsPageBase>

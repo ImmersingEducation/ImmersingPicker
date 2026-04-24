@@ -7,6 +7,7 @@ using FluentAvalonia.UI.Windowing;
 using ImmersingPicker.Abstractions;
 using ImmersingPicker.Helpers;
 using ImmersingPicker.Views;
+using ImmersingPicker.Views.MainPages;
 using Serilog;
 
 namespace ImmersingPicker.Services;
@@ -38,7 +39,7 @@ public class MainWindowNavigationService : NavigationServiceBase
         {
             Type targetType = viewType switch
             {
-                ViewType.Home => typeof(Views.MainPages.HomePage),
+                ViewType.Home => typeof(HomePage),
                 ViewType.History => typeof(Views.MainPages.HistoryPage),
                 _ => throw new ArgumentException("Invalid view type")
             };

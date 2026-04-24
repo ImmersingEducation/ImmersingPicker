@@ -172,12 +172,12 @@ public class Clazz
         return student;
     }
 
-    public void AddStudent(string name, int id, ValueTuple<int, int> seat)
+    public void AddStudent(string name, int id, ValueTuple<int, int> seat, HashSet<Tag> tags)
     {
         _logger.Information("添加学生：{Name}, ID: {Id}, 座位：{Seat}", name, id, seat);
         if (!CheckIfIdExists(id))
         {
-            Student s = new Student(name, id, seat.Item1, seat.Item2);
+            Student s = new Student(name, id, seat.Item1, seat.Item2, tags);
             Students.Add(s);
             _logger.Debug("学生添加成功，当前学生数：{Count}", Students.Count);
             OnStudentListChanged();
@@ -220,21 +220,6 @@ public class Clazz
         {
             _logger.Warning("学生 ID 不存在，删除失败：{Id}", id);
         }
-    }
-
-    public History? Pick(string picker, int amount)
-    {
-        _logger.Information("执行抽选：抽选器：{Picker}, 人数：{Amount}", picker, amount);
-        if (!Pickers.ContainsKey(picker))
-        {
-            _logger.Error("抽选器不存在：{Picker}", picker);
-            return null;
-        }
-        
-        History history = Pickers[picker].Pick(amount);
-        _logger.Debug("抽选完成，选中学生：{Students}", string.Join(", ", history.Students.Select(s => s.Name)));
-        AddHistory(history);
-        return history;
     }
 
     public void AddHistory(History history)

@@ -21,8 +21,14 @@
                         <Button x:Name="BatchEditSeatButton" Content="批量设置座位" Width="120" Click="BatchEditSeatButton_OnClick"/>
                         <Button x:Name="SaveButton" Content="保存" Width="100" Click="SaveButton_OnClick"/>
                 </StackPanel>
-                
-                <controls:StudentEditTableView x:Name="StudentTableView" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
-                                               Margin="5"/>
+
+                <!-- 卡片布局的学生列表 -->
+                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
+                              Margin="5" HorizontalScrollBarVisibility="Disabled" 
+                              VerticalScrollBarVisibility="Auto"
+                              Background="{DynamicResource SystemControlPageBackgroundAltHighBrush}">
+                        <WrapPanel x:Name="StudentsWrapPanel" Orientation="Horizontal" 
+                                   HorizontalAlignment="Center"/>
+                </ScrollViewer>
         </Grid>
 </UserControl>

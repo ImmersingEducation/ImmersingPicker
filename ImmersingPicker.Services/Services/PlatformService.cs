@@ -12,31 +12,34 @@ public class PlatformServices
 
     public PlatformServices()
     {
-        AppSettings.Instance.LaunchOnSystemStartChanged += AutoStart;
+        AppSettings.Instance.LaunchOnSystemStartChanged += OnLaunchOnSystemStartChanged;
     }
 
-    public void AutoStart(bool state)
+    private void OnLaunchOnSystemStartChanged(bool state)
+    {
+        AutoStart(state);
+    }
+
+    public bool AutoStart(bool state)
     {
         if (state)
-        {
-            EnableAutoStart();
+        { 
+            return EnableAutoStart();
         }
         else
         {
             DisableAutoStart();
+            return true;
         }
     }
 
-    public void EnableAutoStart()
+    public bool EnableAutoStart()
     {
         if (OperatingSystem.IsWindows())
         {
-            EnableAutoStartWindows();
+            return EnableAutoStartWindows();
         }
-        else
-        {
-
-        }
+        return false;
     }
 
     public void DisableAutoStart()
@@ -45,14 +48,9 @@ public class PlatformServices
         {
             DisableAutoStartWindows();
         }
-        else
-        {
-
-        }
-
     }
 
-    private void EnableAutoStartWindows()
+    private bool EnableAutoStartWindows()
     {
         string GetStartupFolderPath() => Environment.GetFolderPath(Environment.SpecialFolder.Startup);
 
@@ -85,7 +83,7 @@ public class PlatformServices
 
             // 获取当前可执行文件的完整路径
             string exePath = Assembly.GetEntryAssembly()?.Location ?? Path.GetFullPath("./ImmersingPicker.exe");
-            
+
             // 检查是否是dll文件，如果是，尝试找到对应的exe文件
             if (exePath.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
             {
@@ -104,7 +102,7 @@ public class PlatformServices
                     }
                 }
             }
-            
+
             if (!File.Exists(exePath))
             {
                 throw new FileNotFoundException($"Executable file not found at: {exePath}");
@@ -120,9 +118,13 @@ $Shortcut.Description = 'ImmersingPicker'
 $Shortcut.Save()
 ";
             ExecutePowerShellScript(script);
-        } catch (Exception e)
+            return true;
+        }
+        catch (Exception e)
         {
-            throw new Exception("Failed to create shortcut.", e);
+            // 记录异常但不抛出，返回false
+            Debug.WriteLine($"Failed to create shortcut: {e.Message}");
+            return false;
         }
     }
 
@@ -137,38 +139,40 @@ $Shortcut.Save()
         }
     }
 
-    public void CreateDesktopShortcut()
+    public bool CreateDesktopShortcut()
     {
         if (OperatingSystem.IsWindows())
         {
-            CreateDesktopShortcutWindows();
+            return CreateDesktopShortcutWindows();
         }
+        return false;
     }
 
-    public void CreateStartMenuShortcut()
+    public bool CreateStartMenuShortcut()
     {
         if (OperatingSystem.IsWindows())
         {
-            CreateStartMenuShortcutWindows();
+            return CreateStartMenuShortcutWindows();
         }
+        return false;
     }
 
-    private void CreateDesktopShortcutWindows()
+    private bool CreateDesktopShortcutWindows()
     {
         string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         string shortcutPath = Path.Combine(desktopPath, "ImmersingPicker.lnk");
-        CreateShortcut(shortcutPath);
+        return CreateShortcut(shortcutPath);
     }
 
-    private void CreateStartMenuShortcutWindows()
+    private bool CreateStartMenuShortcutWindows()
     {
         string startMenuPath = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
         string programMenuPath = Path.Combine(startMenuPath, "Programs");
         string shortcutPath = Path.Combine(programMenuPath, "ImmersingPicker.lnk");
-        CreateShortcut(shortcutPath);
+        return CreateShortcut(shortcutPath);
     }
 
-    private void CreateShortcut(string shortcutPath)
+    private bool CreateShortcut(string shortcutPath)
     {
         void ExecutePowerShellScript(string script)
         {
@@ -195,7 +199,7 @@ $Shortcut.Save()
         try
         {
             string exePath = Assembly.GetEntryAssembly()?.Location ?? Path.GetFullPath("./ImmersingPicker.exe");
-            
+
             if (exePath.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
             {
                 string potentialExePath = Path.ChangeExtension(exePath, ".exe");
@@ -212,7 +216,7 @@ $Shortcut.Save()
                     }
                 }
             }
-            
+
             if (!File.Exists(exePath))
             {
                 throw new FileNotFoundException($"Executable file not found at: {exePath}");
@@ -227,9 +231,13 @@ $Shortcut.Description = 'ImmersingPicker'
 $Shortcut.Save()
 ";
             ExecutePowerShellScript(script);
-        } catch (Exception e)
+            return true;
+        }
+        catch (Exception e)
         {
-            throw new Exception("Failed to create shortcut.", e);
+            // 记录异常但不抛出，返回false
+            Debug.WriteLine($"Failed to create shortcut: {e.Message}");
+            return false;
         }
     }
 }

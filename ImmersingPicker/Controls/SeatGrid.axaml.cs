@@ -19,6 +19,18 @@ public partial class SeatGrid : UserControl
     private Dictionary<int, int> _rowIndexMap = new();
     private Dictionary<int, int> _columnIndexMap = new();
 
+    private double _magnifyLens = 1;
+    public double MagnifyingLens
+    {
+        get => _magnifyLens;
+        set
+        {
+            if (value < 1) return;
+            _magnifyLens = value;
+            RefreshStudents();
+        }
+    }
+
     private Clazz? _clazz;
 
     private Dictionary<int, Button> _seats = new();
@@ -143,8 +155,8 @@ public partial class SeatGrid : UserControl
                 var button = new Button
                 {
                     Content = $"{student.Id} {student.Name}",
-                    Width = 80,
-                    Height = 48,
+                    Width = 80*MagnifyingLens,
+                    Height = 48*MagnifyingLens,
                     Margin = new Thickness(5),
                     BorderThickness = new Thickness(2),
                     BorderBrush = Avalonia.Media.Brushes.Gray,
@@ -240,7 +252,7 @@ public partial class SeatGrid : UserControl
         for (int i = 0; i < 10; i++)
         {
             DeselectAll();
-            foreach (Student student in _clazz.Pickers["PlainStudentPicker"].Pick(amount).Students)
+            foreach (Student student in _clazz.Pickers["PlainStudentPicker"].Pick(_clazz, amount).Students)
             {
                 Select(student);
             }
@@ -248,10 +260,9 @@ public partial class SeatGrid : UserControl
             await Task.Delay(100);
         }
 
-        // 最终抽选结果
         _logger.Information("执行最终抽选");
         DeselectAll();
-        var picked = _clazz.Pickers["FairStudentPicker"].Pick(amount).Students;
+        var picked = _clazz.Pickers["FairStudentPicker"].Pick(_clazz, amount).Students;
         _logger.Information("抽选完成，结果：{Students}", string.Join(", ", picked.Select(s => s.Name)));
         
         foreach (Student student in picked)

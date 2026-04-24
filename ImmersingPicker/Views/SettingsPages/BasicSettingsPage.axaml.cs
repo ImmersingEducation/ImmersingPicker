@@ -1,13 +1,17 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using FluentAvalonia.UI.Controls;
 using ImmersingPicker.Controls;
 using ImmersingPicker.Core.Models;
+using ImmersingPicker.Services.Services;
 
 namespace ImmersingPicker.Views.SettingsPages;
 
 public partial class BasicSettingsPage : SettingsPageBase
 {
+    private bool _isUpdatingLaunchOnSystemStart;
+
     public BasicSettingsPage()
     {
         InitializeComponent();
@@ -43,9 +47,43 @@ public partial class BasicSettingsPage : SettingsPageBase
             }
     }
 
-    private void LaunchOnSystemStart_OnIsCheckedChanged(object? sender, RoutedEventArgs e)
+    private async void LaunchOnSystemStart_OnIsCheckedChanged(object? sender, RoutedEventArgs e)
     {
-        AppSettings.LaunchOnSystemStart = LaunchOnSystemStart.IsChecked ?? false;
+        // 防止递归调用
+        if (_isUpdatingLaunchOnSystemStart)
+            return;
+
+        bool isChecked = LaunchOnSystemStart.IsChecked ?? false;
+        bool success = PlatformServices.Instance.AutoStart(isChecked);
+
+        if (!success)
+        {
+            // 设置标志防止递归
+            _isUpdatingLaunchOnSystemStart = true;
+            try
+            {
+                // 创建失败，立即关闭开关
+                LaunchOnSystemStart.IsChecked = false;
+            }
+            finally
+            {
+                _isUpdatingLaunchOnSystemStart = false;
+            }
+
+            // 弹窗提醒
+            var dialog = new ContentDialog
+            {
+                Title = "设置失败",
+                Content = "创建开机启动快捷方式失败，请检查权限设置后重试。",
+                CloseButtonText = "确定"
+            };
+
+            var parentWindow = TopLevel.GetTopLevel(this) as Window;
+            if (parentWindow != null)
+            {
+                await dialog.ShowAsync(parentWindow);
+            }
+        }
     }
 
     private void OpenUrlAndIpc_OnIsCheckedChanged(object? sender, RoutedEventArgs e)

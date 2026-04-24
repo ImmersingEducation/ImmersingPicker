@@ -9,6 +9,16 @@
              x:Class="ImmersingPicker.Views.SettingsPages.PickerSettingsPage">
         <StackPanel Orientation="Vertical" Spacing="12">
                 <StackPanel Orientation="Vertical">
+                        <fa:SettingsExpanderItem Content="公平抽选模式" IconSource="{ipicker:FluentIconSource}">
+                                <fa:SettingsExpanderItem.Footer>
+                                        <fa:FAComboBox x:Name="FairPickerMode" SelectionChanged="FairPickerMode_OnSelectionChanged">
+                                                <fa:FAComboBoxItem Content="普通抽选"/>
+                                                <fa:FAComboBoxItem Content="不重复抽取"/>
+                                        </fa:FAComboBox>
+                                </fa:SettingsExpanderItem.Footer>
+                        </fa:SettingsExpanderItem>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
                         <fa:SettingsExpanderItem Content="公平抽选参数之一" IconSource="{ipicker:FluentIconSource &#xE5C2;}">
                                 <fa:SettingsExpanderItem.Footer>
                                         <NumericUpDown x:Name="WeightCalculationParam1" ValueChanged="WeightCalculationParam1_OnValueChanged" FormatString="0.00" Increment="0.01"/>

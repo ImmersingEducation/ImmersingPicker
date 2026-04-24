@@ -18,6 +18,7 @@ public partial class PickerSettingsPage : SettingsPageBase
 
     protected override void LoadSettings()
     {
+        FairPickerMode.SelectedIndex = (int)AppSettings.Instance.FairPickerMode;
         WeightCalculationParam1.Value = Convert.ToDecimal(AppSettings.WeightCalculationParam1);
         WeightCalculationParam2.Value = Convert.ToDecimal(AppSettings.WeightCalculationParam2);
         WeightCalculationParam3.Value = Convert.ToDecimal(AppSettings.WeightCalculationParam3);
@@ -78,5 +79,10 @@ public partial class PickerSettingsPage : SettingsPageBase
     private void WeightCalculationParam10_OnValueChanged(object? sender, NumericUpDownValueChangedEventArgs e)
     {
         AppSettings.WeightCalculationParam10 = Convert.ToInt32(WeightCalculationParam10.Value);
+    }
+
+    private void FairPickerMode_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        AppSettings.Instance.FairPickerMode = (AppSettings.FairPickerModeEnum)FairPickerMode.SelectedIndex;
     }
 }

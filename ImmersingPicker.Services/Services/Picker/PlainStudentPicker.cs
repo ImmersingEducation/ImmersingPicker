@@ -1,11 +1,11 @@
-﻿using ImmersingPicker.Core;
+using ImmersingPicker.Core;
 using ImmersingPicker.Core.Abstractions.Picker;
 using ImmersingPicker.Core.Models;
 using Serilog;
 
 namespace ImmersingPicker.Services.Services.Picker;
 
-public class PlainStudentPicker(Clazz clazz) : PickerBase(clazz)
+public class PlainStudentPicker : PickerBase
 {
     public override string Name { get; set; } = "PlainStudentPicker";
     public override bool NeedStore { get; set; } = false;
@@ -25,14 +25,14 @@ public class PlainStudentPicker(Clazz clazz) : PickerBase(clazz)
         return tmp;
     }
 
-    protected override History PickLogic(int amount)
+    protected override History PickLogic(Clazz clazz, int amount)
     {
-        Log.Information("开始执行随机抽取，班级: {ClassName}, 抽取数量: {Amount}", _clazz.Name, amount);
+        Log.Information("开始执行随机抽取，班级: {ClassName}, 抽取数量: {Amount}", clazz.Name, amount);
         
         try
         {
-            List<Student> shuffled = Shuffle(_clazz.Students);
-            Log.Information("学生列表打乱完成，班级共有{Count}个学生", _clazz.Students.Count);
+            List<Student> shuffled = Shuffle(clazz.Students);
+            Log.Information("学生列表打乱完成，班级共有{Count}个学生", clazz.Students.Count);
             
             List<Student> result = new List<Student>();
             for (int i = 0; i < amount && i < shuffled.Count; i++)
@@ -40,11 +40,9 @@ public class PlainStudentPicker(Clazz clazz) : PickerBase(clazz)
                 result.Add(shuffled[i]);
             }
             
-            // 记录抽取结果
             string pickedStudentNames = string.Join(", ", result.Select(s => s.Name));
             Log.Information("抽取完成，结果: {PickedStudents}", pickedStudentNames);
             
-            // 创建历史记录
             var history = new History(DateTime.Now, Name, result);
             Log.Information("创建历史记录成功");
             return history;

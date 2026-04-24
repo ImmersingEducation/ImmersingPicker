@@ -34,7 +34,7 @@ public partial class SettingsWindow : AppWindow
     private void MainNavView_OnSelectionChanged(object? sender, NavigationViewSelectionChangedEventArgs e)
     {
         if (e.SelectedItem is not NavigationViewItem { Tag: string tag }) return;
-        
+
         _logger.Information("设置窗口导航选择变更：{Tag}", tag);
         var viewType = tag switch
         {
@@ -44,6 +44,7 @@ public partial class SettingsWindow : AppWindow
             "SecurityAndPrivacySettings" => Services.SettingsWindowNavigationService.ViewType.SecurityAndPrivacySettings,
             "FloatingWindowSettings" => Services.SettingsWindowNavigationService.ViewType.FloatingWindowSettings,
             "LinkageSettings" => Services.SettingsWindowNavigationService.ViewType.LinkageSettings,
+            "UpdateSettings" => Services.SettingsWindowNavigationService.ViewType.UpdateSettings,
             "About" => Services.SettingsWindowNavigationService.ViewType.About,
             _ => throw new ArgumentException("Invalid view type")
         };
