@@ -6,7 +6,6 @@
                xmlns:wnd="clr-namespace:FluentAvalonia.UI.Windowing;assembly=FluentAvalonia"
                mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                x:Class="ImmersingPicker.Views.EditorWindow"
-               Title="ImmersingPicker - 编辑器" Width="1200" Height="600"
-               Loaded="Control_OnLoaded">
-        <fa:Frame x:Name="ContentFrame" Margin="5"/>
+               Title="ImmersingPicker - 编辑器" Width="1200" Height="600">
+    <fa:Frame x:Name="Frame"/>
 </wnd:AppWindow>

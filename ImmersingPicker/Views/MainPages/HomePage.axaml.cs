@@ -113,8 +113,7 @@ public partial class HomePage : UserControl
 
                 if (result == ContentDialogResult.Primary)
                 {
-                    var parentWindow = this.GetVisualRoot() as AppWindow;
-                    if (parentWindow == null)
+                    if (TopLevel.GetTopLevel(this) is not AppWindow parentWindow)
                     {
                         _logger.Warning("无法获取父窗口");
                         return;

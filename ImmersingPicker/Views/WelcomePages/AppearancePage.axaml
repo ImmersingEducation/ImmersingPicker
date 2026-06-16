@@ -11,22 +11,22 @@
     <controls:WelcomePageBase.PageContent>
         <StackPanel Orientation="Vertical" Spacing="0" Width="500" HorizontalAlignment="Center">
             <TextBlock Text="请选择您喜爱的外观。" HorizontalAlignment="Center" Margin="0,0,0,16"/>
-            <fa:SettingsExpanderItem Content="软件主题" Description="软件使用的主题"
+            <fa:SettingsExpander Header="软件主题" Description="软件使用的主题"
                                      IconSource="{ipicker:FluentIconSource &#xE5CA;}">
-                <fa:SettingsExpanderItem.Footer>
+                <fa:SettingsExpander.Footer>
                     <fa:FAComboBox x:Name="AppTheme" SelectionChanged="AppTheme_OnSelectionChanged">
                         <fa:FAComboBoxItem Content="亮色" />
                         <fa:FAComboBoxItem Content="暗色" />
                         <fa:FAComboBoxItem Content="跟随系统" />
                     </fa:FAComboBox>
-                </fa:SettingsExpanderItem.Footer>
-            </fa:SettingsExpanderItem>
-            <fa:SettingsExpanderItem Content="软件主题颜色" Description="软件使用的主题色和强调色"
+                </fa:SettingsExpander.Footer>
+            </fa:SettingsExpander>
+            <fa:SettingsExpander Header="软件主题颜色" Description="软件使用的主题色和强调色"
                                      IconSource="{ipicker:FluentIconSource &#xE51F;}">
-                <fa:SettingsExpanderItem.Footer>
+                <fa:SettingsExpander.Footer>
                     <ColorPicker x:Name="AppThemeColor" ColorChanged="AppThemeColor_OnColorChanged" />
-                </fa:SettingsExpanderItem.Footer>
-            </fa:SettingsExpanderItem>
+                </fa:SettingsExpander.Footer>
+            </fa:SettingsExpander>
         </StackPanel>
     </controls:WelcomePageBase.PageContent>
 </controls:WelcomePageBase>

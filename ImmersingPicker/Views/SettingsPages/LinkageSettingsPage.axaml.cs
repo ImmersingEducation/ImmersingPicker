@@ -11,7 +11,6 @@ public partial class LinkageSettingsPage : SettingsPageBase
     public LinkageSettingsPage()
     {
         InitializeComponent();
-        PageTitle.Text = "联动设置";
         LoadSettings();
         UpdateControlsState();
     }

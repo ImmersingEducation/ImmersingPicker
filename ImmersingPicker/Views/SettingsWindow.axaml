@@ -21,7 +21,6 @@
                         <fa:NavigationViewItem x:Name="AdvancedSettingsItem" Content="安全与隐私设置" Tag="SecurityAndPrivacySettings" IconSource="{ipicker:FluentIconSource &#xEF60;}"/>
                         <fa:NavigationViewItem x:Name="FloatingWindowSettingsItem" Content="浮窗设置" Tag="FloatingWindowSettings" IconSource="{ipicker:FluentIconSource &#xEC82;}"/>
                         <fa:NavigationViewItem x:Name="LinkageSettingsItem" Content="联动设置" Tag="LinkageSettings" IconSource="{ipicker:FluentIconSource &#xE2A9;}"/>
-                        <fa:NavigationViewItem x:Name="UpdateSettingsItem" Content="更新管理" Tag="UpdateSettings" IconSource="{ipicker:FluentIconSource &#xE896;}"/>
                         <fa:NavigationViewItem x:Name="AboutItem" Content="关于" Tag="About" IconSource="{ipicker:FluentIconSource &#xE22B;}"/>
                 </fa:NavigationView.MenuItems>
                 <fa:Frame x:Name="ContentFrame" Margin="20"/>

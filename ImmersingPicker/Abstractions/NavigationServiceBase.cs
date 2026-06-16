@@ -28,17 +28,18 @@ public abstract class NavigationServiceBase
         {
             try
             {
-                _logger.Verbose("创建视图实例");
-                if (Activator.CreateInstance(viewType) is UserControl view)
-                {
-                    _logger.Verbose("设置视图为框架内容");
-                    _mainContentFrame.Content = view;
-                    _logger.Information("导航成功");
-                }
-                else
-                {
-                    _logger.Warning("无法创建视图实例：{ViewType}", viewType.Name);
-                }
+                // _logger.Verbose("创建视图实例");
+                // if (Activator.CreateInstance(viewType) is UserControl view)
+                // {
+                //     _logger.Verbose("设置视图为框架内容");
+                //     _mainContentFrame.Content = view;
+                //     _logger.Information("导航成功");
+                // }
+                // else
+                // {
+                //     _logger.Warning("无法创建视图实例：{ViewType}", viewType.Name);
+                // }
+                _mainContentFrame.Navigate(viewType);
             }
             catch (Exception ex)
             {

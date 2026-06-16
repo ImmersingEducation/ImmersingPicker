@@ -44,7 +44,6 @@ public partial class SettingsWindow : AppWindow
             "SecurityAndPrivacySettings" => Services.SettingsWindowNavigationService.ViewType.SecurityAndPrivacySettings,
             "FloatingWindowSettings" => Services.SettingsWindowNavigationService.ViewType.FloatingWindowSettings,
             "LinkageSettings" => Services.SettingsWindowNavigationService.ViewType.LinkageSettings,
-            "UpdateSettings" => Services.SettingsWindowNavigationService.ViewType.UpdateSettings,
             "About" => Services.SettingsWindowNavigationService.ViewType.About,
             _ => throw new ArgumentException("Invalid view type")
         };

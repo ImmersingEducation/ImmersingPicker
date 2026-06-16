@@ -7,45 +7,43 @@
              xmlns:controls="clr-namespace:ImmersingPicker.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ImmersingPicker.Views.SettingsPages.HomePageSettingsPage">
-        <StackPanel Orientation="Vertical" Spacing="12">
-                <StackPanel Orientation="Vertical">
-                        <fa:SettingsExpanderItem Content="抽选动画播放模式" Description="设置抽选动画播放模式，包括自动、手动和直接显示" IconSource="{ipicker:FluentIconSource &#xF400;}">
-                                <fa:SettingsExpanderItem.Footer>
+        <controls:SettingsPageShell Title="主界面设置">
+                <StackPanel Orientation="Vertical" Spacing="8">
+                        <fa:SettingsExpander Header="抽选动画播放模式" Description="设置抽选动画播放模式，包括自动、手动和直接显示" IconSource="{ipicker:FluentIconSource &#xF400;}">
+                                <fa:SettingsExpander.Footer>
                                         <fa:FAComboBox x:Name="PickAnimationPlayMode" SelectionChanged="PickAnimationPlayMode_OnSelectionChanged">
                                                 <fa:FAComboBoxItem Content="自动播放"/>
                                                 <fa:FAComboBoxItem Content="手动播放"/>
                                                 <fa:FAComboBoxItem Content="直接显示结果"/>
                                         </fa:FAComboBox>
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
-                        <fa:SettingsExpanderItem x:Name="HomeAnimationPlayAmountItem" Content="抽选动画播放次数" Description="次数越多，动画播放时长越久" IconSource="{ipicker:FluentIconSource &#xEDBC;}">
-                                <fa:SettingsExpanderItem.Footer>
+                                </fa:SettingsExpander.Footer>
+                        </fa:SettingsExpander>
+                        <fa:SettingsExpander x:Name="HomeAnimationPlayAmountItem" Header="抽选动画播放次数" Description="次数越多，动画播放时长越久" IconSource="{ipicker:FluentIconSource &#xEDBC;}">
+                                <fa:SettingsExpander.Footer>
                                         <NumericUpDown x:Name="HomeAnimationPlayAmount" Minimum="0" FormatString="0" Increment="1" ValueChanged="HomeAnimationPlayAmount_OnValueChanged"/>
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
-                        <fa:SettingsExpanderItem x:Name="HomeAnimationPlayDelayItem" Content="抽选动画播放间隔" Description="次数越多，动画播放时长越久" IconSource="{ipicker:FluentIconSource &#xF360;}">
-                                <fa:SettingsExpanderItem.Footer>
+                                </fa:SettingsExpander.Footer>
+                        </fa:SettingsExpander>
+                        <fa:SettingsExpander x:Name="HomeAnimationPlayDelayItem" Header="抽选动画播放间隔" Description="次数越多，动画播放时长越久" IconSource="{ipicker:FluentIconSource &#xF360;}">
+                                <fa:SettingsExpander.Footer>
                                         <NumericUpDown x:Name="HomeAnimationPlayDelay" Minimum="20" FormatString="0" Increment="20" ValueChanged="HomeAnimationPlayDelay_OnValueChanged"/>
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                        <fa:SettingsExpanderItem Content="座位网格行排列方向" Description="改变座位网格行排列方向，可选从上至下和从下至上" IconSource="{ipicker:FluentIconSource &#xE08A;}">
-                                <fa:SettingsExpanderItem.Footer>
+                                </fa:SettingsExpander.Footer>
+                        </fa:SettingsExpander>
+                        <fa:SettingsExpander Header="座位网格行排列方向" Description="改变座位网格行排列方向，可选从上至下和从下至上" IconSource="{ipicker:FluentIconSource &#xE08A;}">
+                                <fa:SettingsExpander.Footer>
                                         <fa:FAComboBox x:Name="SeatGridRowArrangement" SelectionChanged="SeatGridRowArrangement_OnSelectionChanged">
                                                 <fa:FAComboBoxItem Content="从上至下"/>
                                                 <fa:FAComboBoxItem Content="从下至上"/>
                                         </fa:FAComboBox>
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
-                        <fa:SettingsExpanderItem Content="座位网格列排列方向" Description="改变座位网格列排列方向，可选从左至右和从右至左" IconSource="{ipicker:FluentIconSource &#xE092;}">
-                                <fa:SettingsExpanderItem.Footer>
+                                </fa:SettingsExpander.Footer>
+                        </fa:SettingsExpander>
+                        <fa:SettingsExpander Header="座位网格列排列方向" Description="改变座位网格列排列方向，可选从左至右和从右至左" IconSource="{ipicker:FluentIconSource &#xE092;}">
+                                <fa:SettingsExpander.Footer>
                                         <fa:FAComboBox x:Name="SeatGridColumnArrangement" SelectionChanged="SeatGridColumnArrangement_OnSelectionChanged">
                                                 <fa:FAComboBoxItem Content="从左至右"/>
                                                 <fa:FAComboBoxItem Content="从右至左"/>
                                         </fa:FAComboBox>
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
+                                </fa:SettingsExpander.Footer>
+                        </fa:SettingsExpander>
                 </StackPanel>
-        </StackPanel>
+        </controls:SettingsPageShell>
 </controls:SettingsPageBase>

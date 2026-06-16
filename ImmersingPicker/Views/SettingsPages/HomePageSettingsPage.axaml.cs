@@ -12,7 +12,6 @@ public partial class HomePageSettingsPage : SettingsPageBase
     public HomePageSettingsPage()
     {
         InitializeComponent();
-        PageTitle.Text = "主界面设置";
         LoadSettings();
     }
 

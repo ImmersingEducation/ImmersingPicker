@@ -7,18 +7,20 @@
              xmlns:controls="clr-namespace:ImmersingPicker.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ImmersingPicker.Views.SettingsPages.LinkageSettingsPage">
-        <StackPanel Orientation="Vertical" Spacing="12">
-                <fa:SettingsExpanderItem Content="启动 ClassIsland 跨进程联动" Description="开启后可通过 IPC 接收 ClassIsland 课程事件，需提前安装" IconSource="{ipicker:FluentIconSource &#xE479;}">
-                        <fa:SettingsExpanderItem.Footer>
-                                <ToggleSwitch x:Name="EnableClassIslandLinkage" OnContent="" OffContent=""
-                                              IsCheckedChanged="EnableClassIslandLinkage_OnIsCheckedChanged"/>
-                        </fa:SettingsExpanderItem.Footer>
-                </fa:SettingsExpanderItem>
-                <fa:SettingsExpanderItem x:Name="EnableDisablingAfterClassItem" Content="启动课间禁用" Description="开启后，当 ClassIsland 课间休息事件触发时，将禁用大部分功能，建议设置密码" IconSource="{ipicker:FluentIconSource &#xEE0E;}">
-                        <fa:SettingsExpanderItem.Footer>
-                                <ToggleSwitch x:Name="EnableDisablingAfterClass" OnContent="" OffContent=""
-                                              IsCheckedChanged="EnableDisablingAfterClasses_OnIsCheckedChanged"/>
-                        </fa:SettingsExpanderItem.Footer>
-                </fa:SettingsExpanderItem>
-        </StackPanel>
+        <controls:SettingsPageShell Title="联动设置">
+                <StackPanel Orientation="Vertical" Spacing="8">
+                        <fa:SettingsExpander Header="启动 ClassIsland 跨进程联动" Description="开启后可通过 IPC 接收 ClassIsland 课程事件，需提前安装" IconSource="{ipicker:FluentIconSource &#xE479;}">
+                                <fa:SettingsExpander.Footer>
+                                        <ToggleSwitch x:Name="EnableClassIslandLinkage" OnContent="" OffContent=""
+                                                      IsCheckedChanged="EnableClassIslandLinkage_OnIsCheckedChanged"/>
+                                </fa:SettingsExpander.Footer>
+                        </fa:SettingsExpander>
+                        <fa:SettingsExpander x:Name="EnableDisablingAfterClassItem" Header="启动课间禁用" Description="开启后，当 ClassIsland 课间休息事件触发时，将禁用大部分功能，建议设置密码" IconSource="{ipicker:FluentIconSource &#xEE0E;}">
+                                <fa:SettingsExpander.Footer>
+                                        <ToggleSwitch x:Name="EnableDisablingAfterClass" OnContent="" OffContent=""
+                                                      IsCheckedChanged="EnableDisablingAfterClasses_OnIsCheckedChanged"/>
+                                </fa:SettingsExpander.Footer>
+                        </fa:SettingsExpander>
+                </StackPanel>
+        </controls:SettingsPageShell>
 </controls:SettingsPageBase>

@@ -23,9 +23,22 @@
 
         <Application.Styles>
                 <sty:FluentAvaloniaTheme />
+                <Style Selector="Window">
+                        <Setter Property="FontFamily" Value="{DynamicResource HarmonyOsSansSc}" />
+                </Style>
+                <Style Selector="TextBlock">
+                        <Setter Property="FontFamily" Value="{DynamicResource HarmonyOsSansSc}" />
+                </Style>
+                <Style Selector="Button">
+                        <Setter Property="FontFamily" Value="{DynamicResource HarmonyOsSansSc}" />
+                </Style>
+                <Style Selector="TextBox">
+                        <Setter Property="FontFamily" Value="{DynamicResource HarmonyOsSansSc}" />
+                </Style>
         </Application.Styles>
 
         <Application.Resources>
                 <FontFamily x:Key="FluentSystemIcons">avares://ImmersingPicker/Assets/Fonts/FluentSystemIcons-Resizable.ttf#FluentSystemIcons</FontFamily>
+                <FontFamily x:Key="HarmonyOsSansSc">avares://ImmersingPicker/Assets/Fonts/HarmonyOS_SansSC_Regular.ttf#HarmonyOS Sans SC</FontFamily>
         </Application.Resources>
 </Application>

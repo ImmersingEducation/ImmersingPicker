@@ -21,17 +21,18 @@ public partial class StudentEditCardDialog : UserControl
         _student = student;
         _isNewStudent = false;
         DialogTitleText.Text = "编辑学生信息";
+        IdNumericUpDown.IsReadOnly = true;
         LoadStudent(student);
     }
 
     private void LoadStudent(Student student)
     {
         NameTextBox.Text = student.Name;
-        IdTextBox.Text = student.Id.ToString();
-        SeatRowTextBox.Text = student.SeatRow.ToString();
-        SeatColumnTextBox.Text = student.SeatColumn.ToString();
-        InitialWeightTextBox.Text = student.InitialWeight.ToString("0.00");
-        SelectedAmountTextBox.Text = student.SelectedAmount.ToString();
+        IdNumericUpDown.Value = student.Id;
+        SeatRowNumericUpDown.Value = student.SeatRow;
+        SeatColumnNumericUpDown.Value = student.SeatColumn;
+        InitialWeightNumericUpDown.Value = (decimal)student.InitialWeight;
+        SelectedAmountNumericUpDown.Value = student.SelectedAmount;
     }
 
     public Student GetUpdatedStudent()
@@ -45,20 +46,17 @@ public partial class StudentEditCardDialog : UserControl
 
         _student.Name = NameTextBox.Text ?? string.Empty;
 
-        if (int.TryParse(IdTextBox.Text, out int id))
-            _student.Id = id;
+        if (IdNumericUpDown.Value.HasValue)
+            _student.Id = (int)IdNumericUpDown.Value.Value;
 
-        if (int.TryParse(SeatRowTextBox.Text, out int seatRow))
-            _student.SeatRow = seatRow;
+        if (SeatRowNumericUpDown.Value.HasValue)
+            _student.SeatRow = (int)SeatRowNumericUpDown.Value.Value;
 
-        if (int.TryParse(SeatColumnTextBox.Text, out int seatColumn))
-            _student.SeatColumn = seatColumn;
+        if (SeatColumnNumericUpDown.Value.HasValue)
+            _student.SeatColumn = (int)SeatColumnNumericUpDown.Value.Value;
 
-        if (double.TryParse(InitialWeightTextBox.Text, out double initialWeight))
-            _student.InitialWeight = initialWeight;
-
-        if (int.TryParse(SelectedAmountTextBox.Text, out int selectedAmount))
-            _student.SelectedAmount = selectedAmount;
+        if (InitialWeightNumericUpDown.Value.HasValue)
+            _student.InitialWeight = (double)InitialWeightNumericUpDown.Value.Value;
 
         return _student;
     }

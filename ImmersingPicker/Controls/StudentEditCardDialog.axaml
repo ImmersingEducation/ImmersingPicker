@@ -33,12 +33,9 @@
             <StackPanel Spacing="5">
                 <TextBlock Text="学号" FontWeight="SemiBold" FontSize="14"
                            Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
-                <TextBox x:Name="IdTextBox" 
-                         Padding="10,8"
-                         CornerRadius="4"
-                         Watermark="请输入学号（数字）"
-                         Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
-                         BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+                <NumericUpDown x:Name="IdNumericUpDown" 
+                               Minimum="1" Maximum="999999" Increment="1"
+                               FormatString="N0" HorizontalContentAlignment="Left" />
             </StackPanel>
             
             <!-- 座位 -->
@@ -46,21 +43,15 @@
                 <TextBlock Text="座位" FontWeight="SemiBold" FontSize="14"
                            Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
                 <Grid ColumnDefinitions="*,Auto,*">
-                    <TextBox x:Name="SeatRowTextBox" Grid.Column="0"
-                             Padding="10,8"
-                             CornerRadius="4"
-                             Watermark="行"
-                             Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
-                             BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+                    <NumericUpDown x:Name="SeatRowNumericUpDown" Grid.Column="0"
+                                   Minimum="0" Maximum="999" Increment="1"
+                                   FormatString="N0" HorizontalContentAlignment="Left" />
                     <TextBlock Grid.Column="1" Text="," FontSize="16" FontWeight="Bold"
                                VerticalAlignment="Center" HorizontalAlignment="Center"
                                Margin="10,0"/>
-                    <TextBox x:Name="SeatColumnTextBox" Grid.Column="2"
-                             Padding="10,8"
-                             CornerRadius="4"
-                             Watermark="列"
-                             Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
-                             BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+                    <NumericUpDown x:Name="SeatColumnNumericUpDown" Grid.Column="2"
+                                   Minimum="0" Maximum="999" Increment="1"
+                                   FormatString="N0" HorizontalContentAlignment="Left" />
                 </Grid>
             </StackPanel>
             
@@ -68,24 +59,18 @@
             <StackPanel Spacing="5">
                 <TextBlock Text="初始权重" FontWeight="SemiBold" FontSize="14"
                            Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
-                <TextBox x:Name="InitialWeightTextBox" 
-                         Padding="10,8"
-                         CornerRadius="4"
-                         Watermark="请输入初始权重（数字）"
-                         Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
-                         BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+                <NumericUpDown x:Name="InitialWeightNumericUpDown" 
+                               Minimum="0" Maximum="999" Increment="0.01"
+                               FormatString="N2" HorizontalContentAlignment="Left" />
             </StackPanel>
             
-            <!-- 抽选次数 -->
-            <StackPanel Spacing="5">
+            <!-- 抽选次数（编辑窗口不可修改） -->
+            <StackPanel x:Name="SelectedAmountSection" Spacing="5" IsVisible="False">
                 <TextBlock Text="抽选次数" FontWeight="SemiBold" FontSize="14"
                            Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
-                <TextBox x:Name="SelectedAmountTextBox" 
-                         Padding="10,8"
-                         CornerRadius="4"
-                         Watermark="请输入抽选次数（数字）"
-                         Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
-                         BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+                <NumericUpDown x:Name="SelectedAmountNumericUpDown" 
+                               Minimum="0" Maximum="999999" Increment="1"
+                               FormatString="N0" HorizontalContentAlignment="Left" />
             </StackPanel>
         </StackPanel>
     </Border>

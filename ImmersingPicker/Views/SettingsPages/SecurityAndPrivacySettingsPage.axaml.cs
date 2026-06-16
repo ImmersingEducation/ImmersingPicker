@@ -21,7 +21,6 @@ public partial class SecurityAndPrivacySettingsPage : SettingsPageBase
     public SecurityAndPrivacySettingsPage()
     {
         InitializeComponent();
-        PageTitle.Text = "安全与隐私设置";
         LoadSettings();
         UpdateControlsState();
     }

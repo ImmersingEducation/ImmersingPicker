@@ -24,18 +24,11 @@ public class Student
 
     public Student(string name, int id, int seatRow, int seatColumn, HashSet<Tag> tags)
     {
-        if (id <= 0)
-        {
-            // TODO 抛出异常
-        }
-        else
-        {
-            Name = name;
-            Id = id;
-            SeatRow = seatRow;
-            SeatColumn = seatColumn;
-            Tags = tags;
-        }
+        Name = name; 
+        Id = id; 
+        SeatRow = seatRow; 
+        SeatColumn = seatColumn; 
+        Tags = tags;
     }
 
     public void resetHistories()

@@ -8,6 +8,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
 using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Windowing;
 using ImmersingPicker.Views;
@@ -17,6 +18,7 @@ using ImmersingPicker.Services.Services.Picker;
 using ImmersingPicker.Services.Services.Storage;
 using ImmersingPicker.Services.Services;
 using System.Threading.Tasks;
+using Avalonia.Media;
 using Avalonia.Controls.Primitives;
 using Avalonia.Platform.Storage;
 using ImmersingPicker.Services;
@@ -40,7 +42,7 @@ public partial class App : Application
     private bool _isMainWindowActive;
     private bool _isImmersivePickingWindowActive;
     private bool _isImmersivePickingWindowClosed;
-    private bool _hasCheckedForUpdates = false;
+
 
     public static readonly HttpClient HttpClient = new();
 
@@ -69,6 +71,9 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        Resources["ContentControlThemeFontFamily"] = new FontFamily("avares://ImmersingPicker/Assets/Fonts/HarmonyOS_SansSC_Regular.ttf#HarmonyOS Sans SC");
+        Resources["FontFamily"] = new FontFamily("avares://ImmersingPicker/Assets/Fonts/HarmonyOS_SansSC_Regular.ttf#HarmonyOS Sans SC");
+
         const string mutexName = "ImmersingPicker-SingleInstance-Mutex";
         const string processName = "ImmersingPicker";
 
@@ -216,8 +221,6 @@ public partial class App : Application
                     AppSettings.Instance.FloatingWindowVerticalPositionChanged += OnFloatingWindowSettingsChanged;
                     _logger.Information("悬浮窗口及事件监听初始化完成");
 
-                    // 启动时自动检查更新 (延迟 5 秒,避免阻塞启动)
-                    StartUpdateCheckOnStartup();
                 }
             }
 
@@ -250,7 +253,7 @@ public partial class App : Application
         _autoSaveTimer.Start();
         _logger.Information("自动保存定时器初始化完成");
     }
-
+    
     private void AutoSaveTimer_Elapsed(object? sender, ElapsedEventArgs e)
     {
         try
@@ -545,104 +548,6 @@ public partial class App : Application
             _logger.Information("ClassIsland 联动功能已禁用");
         }
     }
-
-    /// <summary>
-    /// 启动时自动检查更新
-    /// </summary>
-    private async void StartUpdateCheckOnStartup()
-    {
-        // 如果禁用自动检查更新,则跳过
-        if (!AppSettings.Instance.AutoCheckUpdateEnabled)
-        {
-            _logger.Information("自动检查更新已禁用,跳过启动时检查");
-            return;
-        }
-
-        // 避免重复检查
-        if (_hasCheckedForUpdates)
-        {
-            return;
-        }
-
-        _logger.Information("等待 5 秒后开始启动时更新检查...");
-
-        // 延迟 5 秒,避免阻塞启动
-        await Task.Delay(5000);
-
-        _hasCheckedForUpdates = true;
-
-        try
-        {
-            _logger.Information("开始启动时更新检查...");
-
-            var (result, updateInfo) = await UpdateService.Instance.CheckForUpdatesAsync(
-                AppSettings.Instance.AllowPrereleaseUpdates);
-
-            // 更新最后检查时间
-            AppSettings.Instance.LastUpdateCheckTime = DateTime.Now;
-
-            // 处理检查结果
-            if (result == UpdateCheckResult.UpdateAvailable && updateInfo != null)
-            {
-                _logger.Information("启动时发现新版本: {Version}", updateInfo.Version);
-                
-                // 如果主窗口不在前台，发送系统通知
-                if (!_isMainWindowActive)
-                {
-                    SystemNotificationService.Instance.ShowUpdateAvailableNotification(
-                        updateInfo.Version,
-                        updateInfo.ReleaseNotes);
-                }
-                
-                await ShowUpdateDialogForAppAsync(updateInfo);
-            }
-            else if (result == UpdateCheckResult.NoUpdate)
-            {
-                _logger.Information("启动时检查: 当前已是最新版本");
-            }
-            else if (result == UpdateCheckResult.Cancelled)
-            {
-                _logger.Information("启动时检查: 用户已跳过此版本");
-            }
-            else
-            {
-                _logger.Warning("启动时检查: 检查更新失败或出错");
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.Error(ex, "启动时检查更新发生错误");
-        }
-    }
-
-    /// <summary>
-    /// 显示更新对话框 (从 App 调用)
-    /// </summary>
-    private async Task ShowUpdateDialogForAppAsync(ImmersingPicker.Core.Models.UpdateInfo updateInfo)
-    {
-        if (_mainWindow == null)
-        {
-            _logger.Warning("主窗口为空,无法显示更新对话框");
-            return;
-        }
-
-        try
-        {
-            var dialog = new FluentAvalonia.UI.Controls.ContentDialog
-            {
-                Title = null,
-                Content = new Views.Dialogs.UpdateDialog(updateInfo),
-                FullSizeDesired = false
-            };
-            
-            await dialog.ShowAsync(_mainWindow);
-        }
-        catch (Exception ex)
-        {
-            _logger.Error(ex, "显示更新对话框失败");
-        }
-    }
-
     private async void OpenEditor(object? sender, EventArgs e)
     {
         // 打开编辑器窗口

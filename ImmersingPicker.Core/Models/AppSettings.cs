@@ -83,11 +83,6 @@ public class AppSettings
     public event Action<bool> EnableDisablingAfterClassesChanged;
     public event Action<bool> IsFirstLaunchChanged;
 
-    public event Action<bool> AutoCheckUpdateEnabledChanged;
-    public event Action<bool> AllowPrereleaseUpdatesChanged;
-    public event Action<DateTime> LastUpdateCheckTimeChanged;
-    public event Action<string> SkippedUpdateVersionChanged;
-
     public event Action AnyChanged;
 
     private bool _launchOnSystemStart;
@@ -124,11 +119,6 @@ public class AppSettings
 
     private bool _enableClassIslandLinkage;
     private bool _enableDisablingAfterClasses;
-
-    private bool _autoCheckUpdateEnabled = true;
-    private bool _allowPrereleaseUpdates = false;
-    private DateTime _lastUpdateCheckTime = DateTime.MinValue;
-    private string _skippedUpdateVersion = string.Empty;
 
     public bool LaunchOnSystemStart
     {
@@ -455,50 +445,6 @@ public class AppSettings
         {
             _isFirstLaunch = value;
             IsFirstLaunchChanged?.Invoke(value);
-            AnyChanged?.Invoke();
-        }
-    }
-
-    public bool AutoCheckUpdateEnabled
-    {
-        get => _autoCheckUpdateEnabled;
-        set
-        {
-            _autoCheckUpdateEnabled = value;
-            AutoCheckUpdateEnabledChanged?.Invoke(value);
-            AnyChanged?.Invoke();
-        }
-    }
-
-    public bool AllowPrereleaseUpdates
-    {
-        get => _allowPrereleaseUpdates;
-        set
-        {
-            _allowPrereleaseUpdates = value;
-            AllowPrereleaseUpdatesChanged?.Invoke(value);
-            AnyChanged?.Invoke();
-        }
-    }
-
-    public DateTime LastUpdateCheckTime
-    {
-        get => _lastUpdateCheckTime;
-        set
-        {
-            _lastUpdateCheckTime = value;
-            LastUpdateCheckTimeChanged?.Invoke(value);
-            AnyChanged?.Invoke();
-        }
-    }
-
-    public string SkippedUpdateVersion
-    {
-        get => _skippedUpdateVersion;
-        set
-        {
-            _skippedUpdateVersion = value;
-            SkippedUpdateVersionChanged?.Invoke(value);
             AnyChanged?.Invoke();
         }
     }

@@ -7,37 +7,37 @@
              xmlns:controls="clr-namespace:ImmersingPicker.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ImmersingPicker.Views.SettingsPages.FloatingWindowSettingsPage">
-        <StackPanel Orientation="Vertical" Spacing="12">
-                <StackPanel Orientation="Vertical">
-                        <fa:SettingsExpanderItem Content="启用浮窗"
-                                                         Description="启用后，当主窗口关闭或失去焦点时将显示浮窗"
-                                                         IconSource="{ipicker:FluentIconSource &#xEC82;}">
-                                <fa:SettingsExpanderItem.Footer>
-                                        <ToggleSwitch x:Name="FloatingWindowEnabled" OnContent="" OffContent=""
-                                                              IsCheckedChanged="FloatingWindowEnabled_OnIsCheckedChanged" />
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
-                        <fa:SettingsExpanderItem Content="停靠位置"
-                                                         Description="选择浮窗停靠在屏幕的左侧或右侧"
-                                                         IconSource="{ipicker:FluentIconSource &#xF2F8;}">
-                                <fa:SettingsExpanderItem.Footer>
-                                        <fa:FAComboBox x:Name="FloatingWindowDockPosition"
-                                                               SelectionChanged="FloatingWindowDockPosition_OnSelectionChanged">
-                                                <fa:FAComboBoxItem Content="左" />
-                                                <fa:FAComboBoxItem Content="右" />
-                                        </fa:FAComboBox>
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
-                        <fa:SettingsExpanderItem Content="竖向位置"
-                                                         Description="调整浮窗在屏幕上的竖向位置（0为顶部，100为底部）"
-                                                         IconSource="{ipicker:FluentIconSource &#xE09A;}">
-                                <fa:SettingsExpanderItem.Footer>
-                                        <Slider x:Name="FloatingWindowVerticalPosition"
-                                                        Minimum="0" Maximum="100" Value="50"
-                                                        Width="200"
-                                                        ValueChanged="FloatingWindowVerticalPosition_OnValueChanged" />
-                                </fa:SettingsExpanderItem.Footer>
-                        </fa:SettingsExpanderItem>
+        <controls:SettingsPageShell Title="浮窗设置">
+                <StackPanel Orientation="Vertical" Spacing="8">
+                    <fa:SettingsExpander Header="启用浮窗"
+                                             Description="启用后，当主窗口关闭或失去焦点时将显示浮窗"
+                                             IconSource="{ipicker:FluentIconSource &#xEC82;}">
+                            <fa:SettingsExpander.Footer>
+                                    <ToggleSwitch x:Name="FloatingWindowEnabled" OnContent="" OffContent=""
+                                                  IsCheckedChanged="FloatingWindowEnabled_OnIsCheckedChanged" />
+                            </fa:SettingsExpander.Footer>
+                    </fa:SettingsExpander>
+                    <fa:SettingsExpander Header="停靠位置"
+                                             Description="选择浮窗停靠在屏幕的左侧或右侧"
+                                             IconSource="{ipicker:FluentIconSource &#xF2F8;}">
+                            <fa:SettingsExpander.Footer>
+                                    <fa:FAComboBox x:Name="FloatingWindowDockPosition"
+                                                   SelectionChanged="FloatingWindowDockPosition_OnSelectionChanged">
+                                            <fa:FAComboBoxItem Content="左" />
+                                            <fa:FAComboBoxItem Content="右" />
+                                    </fa:FAComboBox>
+                            </fa:SettingsExpander.Footer>
+                    </fa:SettingsExpander>
+                    <fa:SettingsExpander Header="竖向位置"
+                                             Description="调整浮窗在屏幕上的竖向位置（0为顶部，100为底部）"
+                                             IconSource="{ipicker:FluentIconSource &#xE09A;}">
+                            <fa:SettingsExpander.Footer>
+                                    <Slider x:Name="FloatingWindowVerticalPosition"
+                                            Minimum="0" Maximum="100" Value="50"
+                                            Width="200"
+                                            ValueChanged="FloatingWindowVerticalPosition_OnValueChanged" />
+                            </fa:SettingsExpander.Footer>
+                    </fa:SettingsExpander>
                 </StackPanel>
-        </StackPanel>
+        </controls:SettingsPageShell>
 </controls:SettingsPageBase>

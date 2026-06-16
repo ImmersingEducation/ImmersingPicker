@@ -15,7 +15,6 @@ public partial class BasicSettingsPage : SettingsPageBase
     public BasicSettingsPage()
     {
         InitializeComponent();
-        PageTitle.Text = "基础设置";
         LoadSettings();
     }
 

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmersingPicker", "Immersin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmersingPicker.Core", "ImmersingPicker.Core\ImmersingPicker.Core.csproj", "{272FDDC8-B668-41DD-93AA-9B5D16C92FC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmersingPicker.Services", "ImmersingPicker.Services\ImmersingPicker.Services.csproj", "{C43AD744-0EB9-48CB-9981-3D31AE719BD7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmersingPicker.Services", "ImmersingPicker.Services\ImmersingPicker.Services.csproj", "{ACF82C26-5A8E-4FC4-92C5-15FC406B5FB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{272FDDC8-B668-41DD-93AA-9B5D16C92FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{272FDDC8-B668-41DD-93AA-9B5D16C92FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{272FDDC8-B668-41DD-93AA-9B5D16C92FC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C43AD744-0EB9-48CB-9981-3D31AE719BD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C43AD744-0EB9-48CB-9981-3D31AE719BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C43AD744-0EB9-48CB-9981-3D31AE719BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C43AD744-0EB9-48CB-9981-3D31AE719BD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACF82C26-5A8E-4FC4-92C5-15FC406B5FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACF82C26-5A8E-4FC4-92C5-15FC406B5FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACF82C26-5A8E-4FC4-92C5-15FC406B5FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACF82C26-5A8E-4FC4-92C5-15FC406B5FB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,8 +11,7 @@ public partial class AboutPage : SettingsPageBase
     public AboutPage()
     {
         InitializeComponent();
-        PageTitle.Text = "关于";
-        VersionText.Text = VersionServices.VersionString(VersionServices.CurrentVersion);
+        VersionText.Text = VersionService.VersionString(VersionService.CurrentVersion);
     }
 
     private void RestartButton_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
